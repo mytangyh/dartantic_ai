@@ -15,8 +15,8 @@ class AnthropicToolDeliverableTracker {
   AnthropicToolDeliverableTracker(
     this._filesClient, {
     required Set<String> targetMimeTypes,
-  }) : _targetMimeTypes = targetMimeTypes,
-       _startTime = DateTime.now().toUtc();
+  })  : _targetMimeTypes = targetMimeTypes,
+        _startTime = DateTime.now().toUtc();
 
   static final Logger _logger = Logger(
     'dartantic.media.anthropic.tool_deliverables',
@@ -113,9 +113,9 @@ class AnthropicToolDeliverableTracker {
 
   /// Returns a deep copy of all recorded tool events.
   Map<String, List<Map<String, Object?>>> buildToolMetadata() => {
-    for (final entry in _toolEventLog.entries)
-      if (entry.value.isNotEmpty) entry.key: copyEventList(entry.value),
-  };
+        for (final entry in _toolEventLog.entries)
+          if (entry.value.isNotEmpty) entry.key: copyEventList(entry.value),
+      };
 
   /// Collects any new files that have appeared in the Files API since the
   /// tracker was created.
@@ -158,9 +158,8 @@ class AnthropicToolDeliverableTracker {
 
     final assets = <Part>[];
     final raw = event['raw_content'];
-    final content = (raw is Map<String, Object?> || raw is List)
-        ? raw
-        : event['content'];
+    final content =
+        (raw is Map<String, Object?> || raw is List) ? raw : event['content'];
 
     for (final image in _findBase64Images(content)) {
       if (_emittedImageHashes.add(image.base64)) {
@@ -257,8 +256,7 @@ class AnthropicToolDeliverableTracker {
 
       final inner = content['content'];
       if (inner is Map<String, Object?>) {
-        final source =
-            (inner['content'] as Map<String, Object?>?) ??
+        final source = (inner['content'] as Map<String, Object?>?) ??
             (inner['source'] as Map<String, Object?>?);
         if (source != null) {
           final sourceType = source['type'] as String?;
@@ -345,16 +343,16 @@ class AnthropicToolDeliverableTracker {
 
   Future<List<Part>> _collectNewRemoteFiles() async {
     final remoteFiles = await _filesClient.list(limit: 200);
-    final newFiles =
-        remoteFiles.where((file) {
-          if (_seenRemoteFileIds.contains(file.id)) return false;
-          if (file.createdAt == null) return true;
-          return !file.createdAt!.isBefore(_startTime);
-        }).toList()..sort((a, b) {
-          final aTime = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
-          final bTime = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
-          return aTime.compareTo(bTime);
-        });
+    final newFiles = remoteFiles.where((file) {
+      if (_seenRemoteFileIds.contains(file.id)) return false;
+      if (file.createdAt == null) return true;
+      return !file.createdAt!.isBefore(_startTime);
+    }).toList()
+      ..sort((a, b) {
+        final aTime = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+        final bTime = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+        return aTime.compareTo(bTime);
+      });
 
     final assets = <Part>[];
     if (newFiles.isNotEmpty) {
@@ -373,8 +371,7 @@ class AnthropicToolDeliverableTracker {
       }
       final downloaded = await _filesClient.download(file.id);
       final inferredMime = downloaded.mimeType ?? file.mimeType;
-      final name =
-          downloaded.filename ??
+      final name = downloaded.filename ??
           file.filename ??
           _composeFileName(
             'anthropic_file_',
@@ -426,8 +423,7 @@ class AnthropicToolDeliverableTracker {
     final extension = inferredMime == null
         ? null
         : PartHelpers.extensionFromMimeType(inferredMime);
-    final baseName =
-        ref.filename ??
+    final baseName = ref.filename ??
         _composeFileName(
           'inline_image_',
           (_inlineImageCounter++).toString(),

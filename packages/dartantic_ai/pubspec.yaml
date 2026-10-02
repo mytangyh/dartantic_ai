@@ -8,11 +8,11 @@ homepage: https://docs.dartantic.ai
 resolution: workspace
 
 environment:
-  sdk: ^3.10.0
+  sdk: ^3.6.2
 
 dependencies:
   anthropic_sdk_dart: ^1.2.0
-  collection: ^1.19.1
+  collection: ^1.19.0
   dartantic_interface: ^3.0.0
   google_cloud_ai_generativelanguage_v1beta: ^0.5.0
   google_cloud_protobuf: ^0.5.0
@@ -20,7 +20,7 @@ dependencies:
   http: ^1.6.0
   logging: ^1.3.0
   mcp_dart: ^2.0.0
-  meta: ^1.17.0
+  meta: ^1.15.0
   mime: ^2.0.0
   mistralai_dart: ^1.2.0
   ollama_dart: ^1.2.0
@@ -30,5 +30,5 @@ dependencies:
   uuid: ^4.5.2
 
 dev_dependencies:
-  all_lint_rules_community: ^0.0.43
-  test: ^1.28.0
+  all_lint_rules_community: ^0.0.41
+  test: ^1.25.8

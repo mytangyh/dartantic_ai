@@ -80,9 +80,8 @@ class OpenAIResponsesServerSideToolMapper {
           final config = imageGenerationConfig ?? const ImageGenerationConfig();
           tools.add(
             openai.ImageGenerationTool(
-              partialImages: config.partialImages > 0
-                  ? config.partialImages
-                  : null,
+              partialImages:
+                  config.partialImages > 0 ? config.partialImages : null,
               quality: _mapImageQuality(config.quality),
               size: _mapImageSize(config.size),
             ),
@@ -144,13 +143,13 @@ class OpenAIResponsesServerSideToolMapper {
       };
 
   static String _mapImageSize(ImageGenerationSize size) => switch (size) {
-    ImageGenerationSize.auto => 'auto',
-    ImageGenerationSize.square256 => '256x256',
-    ImageGenerationSize.square512 => '512x512',
-    ImageGenerationSize.square1024 => '1024x1024',
-    ImageGenerationSize.landscape1536x1024 => '1536x1024',
-    ImageGenerationSize.landscape1792x1024 => '1792x1024',
-    ImageGenerationSize.portrait1024x1536 => '1024x1536',
-    ImageGenerationSize.portrait1024x1792 => '1024x1792',
-  };
+        ImageGenerationSize.auto => 'auto',
+        ImageGenerationSize.square256 => '256x256',
+        ImageGenerationSize.square512 => '512x512',
+        ImageGenerationSize.square1024 => '1024x1024',
+        ImageGenerationSize.landscape1536x1024 => '1536x1024',
+        ImageGenerationSize.landscape1792x1024 => '1792x1024',
+        ImageGenerationSize.portrait1024x1536 => '1024x1536',
+        ImageGenerationSize.portrait1024x1792 => '1024x1792',
+      };
 }

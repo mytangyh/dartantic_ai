@@ -35,23 +35,22 @@ class MediaResponseAccumulator {
     if (chunk.id.isNotEmpty) {
       _id = chunk.id;
     }
-    _isComplete =
-        _isComplete ||
+    _isComplete = _isComplete ||
         chunk.isComplete ||
         chunk.finishReason != FinishReason.unspecified;
   }
 
   /// Builds the final aggregated media result.
   MediaGenerationResult buildFinal() => MediaGenerationResult(
-    id: _id,
-    assets: List<Part>.unmodifiable(_assets),
-    links: List<LinkPart>.unmodifiable(_links),
-    messages: List<ChatMessage>.unmodifiable(_messages),
-    metadata: Map<String, dynamic>.unmodifiable(_metadata),
-    usage: _usage,
-    finishReason: _finishReason,
-    isComplete: _isComplete || _finishReason != FinishReason.unspecified,
-  );
+        id: _id,
+        assets: List<Part>.unmodifiable(_assets),
+        links: List<LinkPart>.unmodifiable(_links),
+        messages: List<ChatMessage>.unmodifiable(_messages),
+        metadata: Map<String, dynamic>.unmodifiable(_metadata),
+        usage: _usage,
+        finishReason: _finishReason,
+        isComplete: _isComplete || _finishReason != FinishReason.unspecified,
+      );
 
   void _mergeMetadata(String key, dynamic value) {
     final current = _metadata[key];

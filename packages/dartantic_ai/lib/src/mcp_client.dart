@@ -43,13 +43,13 @@ class McpClient {
     Map<String, String>? environment,
     String? workingDirectory,
   }) : this._(
-         kind: McpServerKind.local,
-         name: name,
-         command: command,
-         args: args,
-         environment: environment,
-         workingDirectory: workingDirectory,
-       );
+          kind: McpServerKind.local,
+          name: name,
+          command: command,
+          args: args,
+          environment: environment,
+          workingDirectory: workingDirectory,
+        );
 
   /// Creates a configuration for a remote MCP server accessed via HTTP.
   ///
@@ -60,11 +60,11 @@ class McpClient {
     required Uri url,
     Map<String, String>? headers,
   }) : this._(
-         kind: McpServerKind.remote,
-         name: name,
-         url: url,
-         headers: headers,
-       );
+          kind: McpServerKind.remote,
+          name: name,
+          url: url,
+          headers: headers,
+        );
 
   /// The type of MCP server (local or remote).
   final McpServerKind kind;
@@ -152,9 +152,8 @@ class McpClient {
       tools.add(
         Tool<Map<String, dynamic>>(
           name: tool.name,
-          description: tool.description == null
-              ? ''
-              : '$name: ${tool.description}',
+          description:
+              tool.description == null ? '' : '$name: ${tool.description}',
           inputSchema: Schema.fromMap(tool.inputSchema.toJson()),
           onCall: (args) => _call(tool.name, args),
         ),

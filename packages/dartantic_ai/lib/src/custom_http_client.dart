@@ -27,11 +27,9 @@ class CustomHttpClient extends http.BaseClient {
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
-    final newUrl = baseUrl
-        .resolveUri(request.url)
-        .replace(
-          queryParameters: {...request.url.queryParameters, ...queryParams},
-        );
+    final newUrl = baseUrl.resolveUri(request.url).replace(
+      queryParameters: {...request.url.queryParameters, ...queryParams},
+    );
 
     http.BaseRequest newRequest;
     if (request is http.Request) {

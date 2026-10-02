@@ -57,8 +57,7 @@ a.ThinkingConfig? _buildThinkingConfig(
 
   // Get explicit budget if provided, otherwise use our default
   // Let Anthropic SDK validate the actual constraints
-  final budgetTokens =
-      options?.thinkingBudgetTokens ??
+  final budgetTokens = options?.thinkingBudgetTokens ??
       defaultOptions.thinkingBudgetTokens ??
       _defaultThinkingBudgetTokens;
 
@@ -95,11 +94,11 @@ a.ToolDefinition _mapServerToolConfig(AnthropicServerToolConfig config) {
 class _ServerTool extends a.Tool {
   /// Creates a server tool with the given type and optional name.
   _ServerTool({required String type, String? name})
-    : super(
-        type: type,
-        name: name ?? _nameFromType(type),
-        inputSchema: const a.InputSchema(properties: {}),
-      );
+      : super(
+          type: type,
+          name: name ?? _nameFromType(type),
+          inputSchema: const a.InputSchema(properties: {}),
+        );
 
   static String _nameFromType(String type) {
     // Extract base name from versioned type (e.g., code_execution_20250825 ->
@@ -140,9 +139,8 @@ a.MessageCreateRequest createMessageRequest(
     manualConfigs: manualServerToolConfigs,
     serverSideTools: serverSideToolSet,
   );
-  final serverTools = mergedServerToolConfigs
-      .map(_mapServerToolConfig)
-      .toList();
+  final serverTools =
+      mergedServerToolConfigs.map(_mapServerToolConfig).toList();
   final hasServerTools = serverTools.isNotEmpty;
 
   _logger.fine(
@@ -325,8 +323,8 @@ extension MessageListMapper on List<ChatMessage> {
             'image/gif' => a.ImageMediaType.gif,
             'image/webp' => a.ImageMediaType.webp,
             _ => throw AssertionError(
-              'Unsupported image MIME type: ${dataPart.mimeType}',
-            ),
+                'Unsupported image MIME type: ${dataPart.mimeType}',
+              ),
           },
           data: base64Encode(dataPart.bytes),
         ),
@@ -440,9 +438,8 @@ extension MessageMapper on a.Message {
 
 /// A [StreamTransformer] that converts a stream of Anthropic
 /// [a.MessageStreamEvent]s into [ChatResult]s.
-class MessageStreamEventTransformer
-    extends
-        StreamTransformerBase<a.MessageStreamEvent, ChatResult<ChatMessage>> {
+class MessageStreamEventTransformer extends StreamTransformerBase<
+    a.MessageStreamEvent, ChatResult<ChatMessage>> {
   /// Creates a [MessageStreamEventTransformer].
   MessageStreamEventTransformer();
 
@@ -637,8 +634,7 @@ class MessageStreamEventTransformer
         if (rawPayload != null) 'raw_content': rawPayload,
       };
 
-      final toolKey =
-          (event['tool_name'] as String?) ??
+      final toolKey = (event['tool_name'] as String?) ??
           AnthropicServerToolTypes.codeExecution;
 
       // For web_fetch, extract DataParts from the content structure
@@ -771,8 +767,7 @@ class MessageStreamEventTransformer
         final toolName = _serverToolNamesById[toolUseId];
         if (toolName != null) event['tool_name'] = toolName;
       }
-      final toolKey =
-          (event['tool_name'] as String?) ??
+      final toolKey = (event['tool_name'] as String?) ??
           AnthropicServerToolTypes.codeExecution;
       return _buildToolMetadataChunk(toolKey: toolKey, event: event);
     }
@@ -839,9 +834,8 @@ class MessageStreamEventTransformer
   ) {
     if (_serverToolIndices.remove(e.index)) {
       final toolUseId = _serverToolIdByIndex.remove(e.index);
-      final toolName = toolUseId != null
-          ? _serverToolNamesById[toolUseId]
-          : null;
+      final toolName =
+          toolUseId != null ? _serverToolNamesById[toolUseId] : null;
       final event = <String, Object?>{
         'type': 'server_tool_use_completed',
         'tool_use_id': toolUseId,
@@ -981,8 +975,7 @@ class MessageStreamEventTransformer
     final sanitized = Map<String, Object?>.from(event)
       ..removeWhere((_, value) => value == null);
 
-    final toolKey =
-        sanitized['tool_name'] as String? ??
+    final toolKey = sanitized['tool_name'] as String? ??
         AnthropicServerToolTypes.codeExecution;
 
     return _buildToolMetadataChunk(toolKey: toolKey, event: sanitized);
@@ -1012,8 +1005,7 @@ class MessageStreamEventTransformer
     if (inner is! Map<String, Object?>) return const [];
 
     // Look for source data in content.content or content.source
-    final source =
-        (inner['content'] as Map<String, Object?>?) ??
+    final source = (inner['content'] as Map<String, Object?>?) ??
         (inner['source'] as Map<String, Object?>?);
     if (source == null) return const [];
 
@@ -1043,8 +1035,7 @@ class MessageStreamEventTransformer
       if (sanitizedTitle != null && sanitizedTitle.isNotEmpty) {
         // Append an extension derived from the MIME type when the title lacks
         // one.
-        final hasExtension =
-            sanitizedTitle.contains('.') &&
+        final hasExtension = sanitizedTitle.contains('.') &&
             sanitizedTitle.split('.').last.isNotEmpty;
         if (extension != null && !hasExtension) {
           return '$sanitizedTitle.$extension';
@@ -1067,10 +1058,10 @@ class MessageStreamEventTransformer
 
 /// Maps a list of Anthropic [a.ContentBlock]s to message parts.
 List<Part> _mapMessageContent(List<a.ContentBlock> content) => [
-  // Extract text parts from TextBlocks
-  ...content.whereType<a.TextBlock>().map((t) => TextPart(t.text)),
-  // Do not emit tool use parts here; they stream via block events.
-];
+      // Extract text parts from TextBlocks
+      ...content.whereType<a.TextBlock>().map((t) => TextPart(t.text)),
+      // Do not emit tool use parts here; they stream via block events.
+    ];
 
 /// Maps an Anthropic [a.ContentBlock] to message parts.
 List<Part> _mapContentBlock(a.ContentBlock contentBlock) =>
@@ -1100,18 +1091,19 @@ List<Part> _mapContentBlock(a.ContentBlock contentBlock) =>
 List<Part> _mapContentBlockDelta(
   String? lastToolId,
   a.ContentBlockDelta blockDelta,
-) => switch (blockDelta) {
-  final a.TextDelta t => [TextPart(t.text)],
-  final a.InputJsonDelta _ => const [],
-  // Thinking deltas handled in _mapContentBlockDeltaEvent (metadata only).
-  a.ThinkingDelta() => const [],
-  // Signature deltas are handled separately for thinking block integrity.
-  a.SignatureDelta() => const [],
-  // Citations deltas are not mapped to parts.
-  a.CitationsDelta() => const [],
-  // Compaction deltas are not mapped to parts.
-  a.CompactionDelta() => const [],
-};
+) =>
+    switch (blockDelta) {
+      final a.TextDelta t => [TextPart(t.text)],
+      final a.InputJsonDelta _ => const [],
+      // Thinking deltas handled in _mapContentBlockDeltaEvent (metadata only).
+      a.ThinkingDelta() => const [],
+      // Signature deltas are handled separately for thinking block integrity.
+      a.SignatureDelta() => const [],
+      // Citations deltas are not mapped to parts.
+      a.CitationsDelta() => const [],
+      // Compaction deltas are not mapped to parts.
+      a.CompactionDelta() => const [],
+    };
 
 /// Extension on [List<Tool>] to convert tool specs to Anthropic SDK tools.
 extension ToolSpecListMapper on List<Tool> {
@@ -1143,25 +1135,25 @@ extension ToolSpecListMapper on List<Tool> {
 
 /// Maps an Anthropic [a.StopReason] to a [FinishReason].
 FinishReason _mapFinishReason(a.StopReason? reason) => switch (reason) {
-  a.StopReason.endTurn => FinishReason.stop,
-  a.StopReason.maxTokens => FinishReason.length,
-  a.StopReason.stopSequence => FinishReason.stop,
-  a.StopReason.toolUse => FinishReason.toolCalls,
-  a.StopReason.pauseTurn => FinishReason.stop,
-  a.StopReason.refusal => FinishReason.stop,
-  a.StopReason.compaction => FinishReason.stop,
-  a.StopReason.modelContextWindowExceeded => FinishReason.length,
-  null => FinishReason.unspecified,
-};
+      a.StopReason.endTurn => FinishReason.stop,
+      a.StopReason.maxTokens => FinishReason.length,
+      a.StopReason.stopSequence => FinishReason.stop,
+      a.StopReason.toolUse => FinishReason.toolCalls,
+      a.StopReason.pauseTurn => FinishReason.stop,
+      a.StopReason.refusal => FinishReason.stop,
+      a.StopReason.compaction => FinishReason.stop,
+      a.StopReason.modelContextWindowExceeded => FinishReason.length,
+      null => FinishReason.unspecified,
+    };
 
 /// Maps Anthropic [a.Usage] to [LanguageModelUsage].
 LanguageModelUsage _mapUsage(a.Usage? usage) => LanguageModelUsage(
-  promptTokens: usage?.inputTokens,
-  responseTokens: usage?.outputTokens,
-  totalTokens: usage?.inputTokens != null && usage?.outputTokens != null
-      ? usage!.inputTokens + usage.outputTokens
-      : null,
-);
+      promptTokens: usage?.inputTokens,
+      responseTokens: usage?.outputTokens,
+      totalTokens: usage?.inputTokens != null && usage?.outputTokens != null
+          ? usage!.inputTokens + usage.outputTokens
+          : null,
+    );
 
 /// Maps Anthropic [a.MessageDeltaUsage] to [LanguageModelUsage].
 LanguageModelUsage _mapMessageDeltaUsage(a.MessageDeltaUsage? usage) =>

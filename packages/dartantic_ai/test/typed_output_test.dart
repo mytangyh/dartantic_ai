@@ -26,8 +26,8 @@ import 'test_helpers/run_provider_test.dart';
 
 /// First provider that supports typed output (for single-provider tests)
 Provider get _typedOutputProvider => Agent.allProviders.firstWhere(
-  (p) => providerHasTestCaps(p.name, {ProviderTestCaps.typedOutput}),
-);
+      (p) => providerHasTestCaps(p.name, {ProviderTestCaps.typedOutput}),
+    );
 
 void main() {
   group('Typed Output', timeout: const Timeout(Duration(minutes: 5)), () {
@@ -170,8 +170,8 @@ void main() {
           final json = jsonDecode(result.output) as Map<String, dynamic>;
           expect(
             json['result'].toString().toLowerCase().startsWith(
-              'order processed for ${provider.name}'.toLowerCase(),
-            ),
+                  'order processed for ${provider.name}'.toLowerCase(),
+                ),
             isTrue,
             reason: 'Provider ${provider.name} should generate correct string',
           );
@@ -919,11 +919,11 @@ class WeatherReport {
   });
 
   factory WeatherReport.fromJson(Map<String, dynamic> json) => WeatherReport(
-    location: json['location'] as String,
-    temperature: json['temperature'] as int,
-    conditions: json['conditions'] as String,
-    humidity: json['humidity'] as int,
-  );
+        location: json['location'] as String,
+        temperature: json['temperature'] as int,
+        conditions: json['conditions'] as String,
+        humidity: json['humidity'] as int,
+      );
 
   static final schema = Schema.fromMap({
     'type': 'object',
@@ -964,13 +964,13 @@ class UserProfile {
   });
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
-    name: json['name'] as String,
-    age: json['age'] as int,
-    email: json['email'] as String,
-    preferences: UserPreferences.fromJson(
-      json['preferences'] as Map<String, dynamic>,
-    ),
-  );
+        name: json['name'] as String,
+        age: json['age'] as int,
+        email: json['email'] as String,
+        preferences: UserPreferences.fromJson(
+          json['preferences'] as Map<String, dynamic>,
+        ),
+      );
 
   static final schema = Schema.fromMap({
     'type': 'object',

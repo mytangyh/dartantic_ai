@@ -140,7 +140,6 @@ void main() {
         final nullTool = Tool<Map<String, dynamic>>(
           name: 'null_tool',
           description: 'A tool that returns null',
-
           onCall: (input) => null,
         );
 
@@ -155,7 +154,6 @@ void main() {
         final longErrorTool = Tool<Map<String, dynamic>>(
           name: 'long_error_tool',
           description: 'A tool that throws verbose errors',
-
           onCall: (input) {
             final longMessage = 'Error: ${'x' * 1000}';
             throw Exception(longMessage);

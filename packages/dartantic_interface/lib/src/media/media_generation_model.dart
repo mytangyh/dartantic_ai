@@ -5,8 +5,7 @@ import 'media_generation_result.dart';
 
 /// Base class for media generation models.
 abstract class MediaGenerationModel<
-  TOptions extends MediaGenerationModelOptions
-> {
+    TOptions extends MediaGenerationModelOptions> {
   /// Creates a new media generation model instance.
   MediaGenerationModel({
     required this.name,

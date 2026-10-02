@@ -143,12 +143,12 @@ class TerminalEventHandler implements OpenAIResponsesEventHandler {
 
   static LanguageModelUsage _mapUsage(openai.ResponseUsage? usage) =>
       usage == null
-      ? const LanguageModelUsage()
-      : LanguageModelUsage(
-          promptTokens: usage.inputTokens,
-          responseTokens: usage.outputTokens,
-          totalTokens: usage.totalTokens,
-        );
+          ? const LanguageModelUsage()
+          : LanguageModelUsage(
+              promptTokens: usage.inputTokens,
+              responseTokens: usage.outputTokens,
+              totalTokens: usage.totalTokens,
+            );
 
   static FinishReason _mapFinishReason(openai.Response response) =>
       switch (response.status) {
@@ -158,7 +158,8 @@ class TerminalEventHandler implements OpenAIResponsesEventHandler {
         openai.ResponseStatus.queued ||
         openai.ResponseStatus.inProgress ||
         openai.ResponseStatus.failed ||
-        openai.ResponseStatus.cancelled => FinishReason.unspecified,
+        openai.ResponseStatus.cancelled =>
+          FinishReason.unspecified,
       };
 
   /// Tracks all ContainerFileCitation annotations in the response so the

@@ -219,11 +219,9 @@ bool _hasTextDuplication(String text) {
   final words = text.split(RegExp(r'\s+'));
   if (words.length >= 10) {
     const minSequenceLength = 4;
-    for (
-      var seqLen = minSequenceLength;
-      seqLen <= words.length ~/ 2;
-      seqLen++
-    ) {
+    for (var seqLen = minSequenceLength;
+        seqLen <= words.length ~/ 2;
+        seqLen++) {
       for (var i = 0; i <= words.length - seqLen * 2; i++) {
         final sequence = words.sublist(i, i + seqLen);
         // Look for this sequence later in the text

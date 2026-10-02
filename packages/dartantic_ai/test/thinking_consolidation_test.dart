@@ -47,17 +47,15 @@ void main() {
             );
 
             for (final message in modelMessages) {
-              final thinkingParts = message.parts
-                  .whereType<ThinkingPart>()
-                  .toList();
+              final thinkingParts =
+                  message.parts.whereType<ThinkingPart>().toList();
               final textParts = message.parts.whereType<TextPart>().toList();
 
               // At most one ThinkingPart
               expect(
                 thinkingParts.length,
                 lessThanOrEqualTo(1),
-                reason:
-                    'Should have at most one ThinkingPart, '
+                reason: 'Should have at most one ThinkingPart, '
                     'got ${thinkingParts.length}',
               );
 
@@ -65,8 +63,7 @@ void main() {
               expect(
                 textParts.length,
                 lessThanOrEqualTo(1),
-                reason:
-                    'Should have at most one TextPart, '
+                reason: 'Should have at most one TextPart, '
                     'got ${textParts.length}',
               );
             }
@@ -144,17 +141,15 @@ void main() {
             );
 
             for (final message in consolidatedModelMessages) {
-              final thinkingParts = message.parts
-                  .whereType<ThinkingPart>()
-                  .toList();
+              final thinkingParts =
+                  message.parts.whereType<ThinkingPart>().toList();
               final textParts = message.parts.whereType<TextPart>().toList();
 
               // At most one ThinkingPart
               expect(
                 thinkingParts.length,
                 lessThanOrEqualTo(1),
-                reason:
-                    'Consolidated message should have at most one '
+                reason: 'Consolidated message should have at most one '
                     'ThinkingPart, got ${thinkingParts.length}',
               );
 
@@ -162,8 +157,7 @@ void main() {
               expect(
                 textParts.length,
                 lessThanOrEqualTo(1),
-                reason:
-                    'Consolidated message should have at most one '
+                reason: 'Consolidated message should have at most one '
                     'TextPart, got ${textParts.length}',
               );
             }
@@ -204,8 +198,7 @@ void main() {
                 expect(
                   textIndex,
                   lessThan(thinkingIndex),
-                  reason:
-                      'TextPart should come before ThinkingPart '
+                  reason: 'TextPart should come before ThinkingPart '
                       'in consolidated message',
                 );
               }
@@ -244,8 +237,7 @@ void main() {
             expect(
               thinkingOnlyMessages,
               isEmpty,
-              reason:
-                  'Streaming-only ThinkingPart messages should be filtered '
+              reason: 'Streaming-only ThinkingPart messages should be filtered '
                   'by AgentResponseAccumulator',
             );
 

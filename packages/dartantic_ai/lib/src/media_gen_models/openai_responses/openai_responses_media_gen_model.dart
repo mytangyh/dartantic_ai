@@ -50,8 +50,8 @@ class OpenAIResponsesMediaGenerationModel
     final generationMode = wantsImages && wantsOtherFiles
         ? 'mixed'
         : wantsImages
-        ? 'image_generation'
-        : 'code_interpreter';
+            ? 'image_generation'
+            : 'code_interpreter';
 
     final serverSideTools = <OpenAIServerSideTool>{
       if (wantsImages) OpenAIServerSideTool.imageGeneration,
@@ -112,6 +112,7 @@ class OpenAIResponsesMediaGenerationModel
   void dispose() => _chatModel.dispose();
 
   @visibleForTesting
+
   /// Test-only hook to map a chunk without invoking the network.
   MediaGenerationResult mapChunkForTest(
     ChatResult<ChatMessage> result, {
@@ -119,14 +120,15 @@ class OpenAIResponsesMediaGenerationModel
     required List<String> requestedMimeTypes,
     int chunkIndex = 0,
     List<ChatMessage> accumulatedMessages = const [],
-  }) => _mapChunk(
-    result,
-    _OpenAIResponsesMediaTracker(),
-    List<ChatMessage>.from(accumulatedMessages),
-    generationMode: generationMode,
-    requestedMimeTypes: requestedMimeTypes,
-    chunkIndex: chunkIndex,
-  );
+  }) =>
+      _mapChunk(
+        result,
+        _OpenAIResponsesMediaTracker(),
+        List<ChatMessage>.from(accumulatedMessages),
+        generationMode: generationMode,
+        requestedMimeTypes: requestedMimeTypes,
+        chunkIndex: chunkIndex,
+      );
 
   MediaGenerationResult _mapChunk(
     ChatResult<ChatMessage> result,
@@ -218,22 +220,23 @@ class OpenAIResponsesMediaGenerationModel
     _ResolvedMediaSettings settings, {
     required Set<OpenAIServerSideTool> serverSideTools,
     required bool includeImageConfig,
-  }) => OpenAIResponsesChatModelOptions(
-    store: settings.store,
-    metadata: settings.metadata == null
-        ? null
-        : Map<String, dynamic>.from(settings.metadata!),
-    include: settings.include,
-    user: settings.user,
-    serverSideTools: serverSideTools.isEmpty ? null : serverSideTools,
-    imageGenerationConfig: includeImageConfig
-        ? ImageGenerationConfig(
-            partialImages: settings.partialImages,
-            quality: settings.quality,
-            size: settings.size,
-          )
-        : null,
-  );
+  }) =>
+      OpenAIResponsesChatModelOptions(
+        store: settings.store,
+        metadata: settings.metadata == null
+            ? null
+            : Map<String, dynamic>.from(settings.metadata!),
+        include: settings.include,
+        user: settings.user,
+        serverSideTools: serverSideTools.isEmpty ? null : serverSideTools,
+        imageGenerationConfig: includeImageConfig
+            ? ImageGenerationConfig(
+                partialImages: settings.partialImages,
+                quality: settings.quality,
+                size: settings.size,
+              )
+            : null,
+      );
 
   bool _isImageMimeType(String value) =>
       value == 'image/*' ||

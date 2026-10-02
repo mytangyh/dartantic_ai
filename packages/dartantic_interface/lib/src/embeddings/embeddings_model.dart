@@ -62,9 +62,10 @@ abstract class EmbeddingsModel<TOptions extends EmbeddingsModelOptions> {
     List<List<double>> embeddings, {
     double Function(List<double> a, List<double> b) similarityFunction =
         cosineSimilarity,
-  }) => embeddings
-      .map((vector) => similarityFunction(vector, embedding))
-      .toList(growable: false);
+  }) =>
+      embeddings
+          .map((vector) => similarityFunction(vector, embedding))
+          .toList(growable: false);
 
   /// Returns a sorted list of indexes of [embeddings] that are most similar to
   /// the provided [embedding] (in descending order, most similar first).

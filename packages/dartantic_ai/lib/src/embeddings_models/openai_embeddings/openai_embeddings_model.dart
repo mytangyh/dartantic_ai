@@ -22,27 +22,26 @@ class OpenAIEmbeddingsModel
     super.batchSize = 512,
     String? user,
     OpenAIEmbeddingsModelOptions? options,
-  }) : _client = OpenAIClient(
-         config: OpenAIConfig(
-           authProvider: apiKey != null ? ApiKeyProvider(apiKey) : null,
-           baseUrl: baseUrl?.toString() ?? 'https://api.openai.com/v1',
-           defaultHeaders: headers ?? const {},
-           retryPolicy: const RetryPolicy(maxRetries: 0),
-         ),
-         httpClient: client != null
-             ? RetryHttpClient(inner: client)
-             : RetryHttpClient(inner: http.Client()),
-       ),
-       _user = user,
-       super(
-         defaultOptions:
-             options ??
-             OpenAIEmbeddingsModelOptions(
-               dimensions: dimensions,
-               batchSize: batchSize,
-               user: user,
-             ),
-       ) {
+  })  : _client = OpenAIClient(
+          config: OpenAIConfig(
+            authProvider: apiKey != null ? ApiKeyProvider(apiKey) : null,
+            baseUrl: baseUrl?.toString() ?? 'https://api.openai.com/v1',
+            defaultHeaders: headers ?? const {},
+            retryPolicy: const RetryPolicy(maxRetries: 0),
+          ),
+          httpClient: client != null
+              ? RetryHttpClient(inner: client)
+              : RetryHttpClient(inner: http.Client()),
+        ),
+        _user = user,
+        super(
+          defaultOptions: options ??
+              OpenAIEmbeddingsModelOptions(
+                dimensions: dimensions,
+                batchSize: batchSize,
+                user: user,
+              ),
+        ) {
     _logger.info(
       'Created OpenAI embeddings model: $name '
       '(dimensions: $dimensions, batchSize: $batchSize)',
@@ -139,9 +138,8 @@ class OpenAIEmbeddingsModel
 
     for (var i = 0; i < batches.length; i++) {
       final batch = batches[i];
-      final batchCharacters = batch
-          .map((t) => t.length)
-          .fold(0, (a, b) => a + b);
+      final batchCharacters =
+          batch.map((t) => t.length).fold(0, (a, b) => a + b);
 
       _logger.fine(
         'Processing batch ${i + 1}/${batches.length} '

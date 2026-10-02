@@ -5,8 +5,8 @@ import 'package:google_cloud_protobuf/protobuf.dart' as pb;
 class ProtobufValueHelpers {
   /// Converts a Dart [Map] into a protobuf [pb.Struct].
   static pb.Struct structFromJson(Map<String, dynamic> json) => pb.Struct(
-    fields: json.map((key, value) => MapEntry(key, valueFromJson(value))),
-  );
+        fields: json.map((key, value) => MapEntry(key, valueFromJson(value))),
+      );
 
   /// Converts a protobuf [pb.Struct] into a `Map<String, dynamic>`.
   static Map<String, dynamic> structToJson(pb.Struct? struct) {

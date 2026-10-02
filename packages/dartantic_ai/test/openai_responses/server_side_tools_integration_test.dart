@@ -443,8 +443,8 @@ of structured data alongside the main chat response.
       // Wait for processing
       var status = vectorStore.status;
       var attempts = 0;
-      while (status == assistants.VectorStoreStatus.inProgress &&
-          attempts < 30) {
+      while (
+          status == assistants.VectorStoreStatus.inProgress && attempts < 30) {
         await Future<void>.delayed(const Duration(seconds: 2));
         final updated = await client.beta.vectorStores.retrieve(vectorStore.id);
         status = updated.status;

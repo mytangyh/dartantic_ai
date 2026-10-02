@@ -127,9 +127,8 @@ class AnthropicServerToolConfig {
     required this.name,
     this.description,
     Map<String, dynamic>? inputSchema,
-  }) : inputSchema =
-           inputSchema ??
-           const {'type': 'object', 'additionalProperties': false};
+  }) : inputSchema = inputSchema ??
+            const {'type': 'object', 'additionalProperties': false};
 
   /// Tool type identifier (for example, `code_execution_20250825`).
   final String type;
@@ -149,18 +148,18 @@ class AnthropicServerToolConfig {
 class AnthropicToolChoice {
   /// Creates an automatic tool choice (Anthropic decides when to call tools).
   const AnthropicToolChoice.auto()
-    : type = AnthropicToolChoiceType.auto,
-      name = null;
+      : type = AnthropicToolChoiceType.auto,
+        name = null;
 
   /// Creates an "any" tool choice where Claude selects any available tool.
   const AnthropicToolChoice.any()
-    : type = AnthropicToolChoiceType.any,
-      name = null;
+      : type = AnthropicToolChoiceType.any,
+        name = null;
 
   /// Requires Claude to call the specified [name] tool.
   const AnthropicToolChoice.required(String toolName)
-    : type = AnthropicToolChoiceType.required,
-      name = toolName;
+      : type = AnthropicToolChoiceType.required,
+        name = toolName;
 
   /// The underlying tool choice mode.
   final AnthropicToolChoiceType type;

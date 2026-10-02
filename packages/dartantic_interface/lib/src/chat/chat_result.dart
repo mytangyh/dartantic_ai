@@ -25,8 +25,7 @@ class ChatResult<T extends Object> extends LanguageModelResult<T> {
   final String? thinking;
 
   @override
-  String toString() =>
-      '''
+  String toString() => '''
 ChatResult{
   id: $id,
   output: $output,

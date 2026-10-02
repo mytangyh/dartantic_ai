@@ -22,7 +22,7 @@ String getEnv(String name) {
 String? tryGetEnv(String? name) => name == null || name.isEmpty
     ? null
     : Agent.environment[name] ??
-          (Agent.useAgentEnvironmentOnly ? null : Platform.environment[name]);
+        (Agent.useAgentEnvironmentOnly ? null : Platform.environment[name]);
 
 /// Gets the transport for the MCP server.
 mcp.Transport getTransport({
@@ -34,24 +34,25 @@ mcp.Transport getTransport({
   required Uri? url,
   Map<String, String>? headers,
   Map<String, String>? requestInit,
-}) => switch (kind) {
-  McpServerKind.local => mcp.StdioClientTransport(
-    mcp.StdioServerParameters(
-      command: command!,
-      args: args,
-      environment: environment,
-      workingDirectory: workingDirectory,
-      // Fix mcp_dart bug: must use normal mode to access stdout/stdin
-      // pipes
-      stderrMode: ProcessStartMode.normal,
-    ),
-  ),
-  McpServerKind.remote => mcp.StreamableHttpClientTransport(
-    url!,
-    opts: headers == null
-        ? null
-        : mcp.StreamableHttpClientTransportOptions(
-            requestInit: {'headers': headers},
+}) =>
+    switch (kind) {
+      McpServerKind.local => mcp.StdioClientTransport(
+          mcp.StdioServerParameters(
+            command: command!,
+            args: args,
+            environment: environment,
+            workingDirectory: workingDirectory,
+            // Fix mcp_dart bug: must use normal mode to access stdout/stdin
+            // pipes
+            stderrMode: ProcessStartMode.normal,
           ),
-  ),
-};
+        ),
+      McpServerKind.remote => mcp.StreamableHttpClientTransport(
+          url!,
+          opts: headers == null
+              ? null
+              : mcp.StreamableHttpClientTransportOptions(
+                  requestInit: {'headers': headers},
+                ),
+        ),
+    };

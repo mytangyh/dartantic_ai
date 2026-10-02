@@ -31,8 +31,8 @@ class OpenAIResponsesMetadata {
 
   /// Creates a serialisable session map from the provided fields.
   static Map<String, Object?> buildSession({required String? responseId}) => {
-    if (responseId != null) responseIdKey: responseId,
-  };
+        if (responseId != null) responseIdKey: responseId,
+      };
 
   /// Reads the stored response identifier from [session].
   static String? responseId(Map<String, Object?>? session) =>

@@ -18,14 +18,14 @@ class OllamaEmbeddingsModel
     super.dimensions,
     super.batchSize = 100,
     OllamaEmbeddingsModelOptions? options,
-  }) : _client = OllamaClient(
-         config: OllamaConfig(
-           baseUrl: baseUrl?.toString() ?? 'http://localhost:11434',
-           defaultHeaders: headers ?? {},
-         ),
-         httpClient: client,
-       ),
-       super(defaultOptions: options ?? const OllamaEmbeddingsModelOptions()) {
+  })  : _client = OllamaClient(
+          config: OllamaConfig(
+            baseUrl: baseUrl?.toString() ?? 'http://localhost:11434',
+            defaultHeaders: headers ?? {},
+          ),
+          httpClient: client,
+        ),
+        super(defaultOptions: options ?? const OllamaEmbeddingsModelOptions()) {
     _logger.info(
       'Created Ollama embeddings model: $name '
       '(dimensions: $dimensions, batchSize: $batchSize)',
@@ -96,9 +96,8 @@ class OllamaEmbeddingsModel
 
     for (var i = 0; i < chunks.length; i++) {
       final chunk = chunks[i];
-      final chunkCharacters = chunk
-          .map((t) => t.length)
-          .fold(0, (a, b) => a + b);
+      final chunkCharacters =
+          chunk.map((t) => t.length).fold(0, (a, b) => a + b);
 
       _logger.fine(
         'Processing batch ${i + 1}/${chunks.length} '
@@ -120,8 +119,7 @@ class OllamaEmbeddingsModel
       );
 
       // Handle both single embedding (embedding) and batch (embeddings)
-      final batchEmbeddings =
-          response.embeddings ??
+      final batchEmbeddings = response.embeddings ??
           (response.embedding != null
               ? <List<double>>[response.embedding!]
               : const <List<double>>[]);

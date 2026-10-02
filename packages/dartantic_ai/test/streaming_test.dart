@@ -147,9 +147,8 @@ void main() {
 
           // Should see evidence of both tools being used
           expect(result.output, isNotEmpty);
-          final toolResults = result.messages
-              .expand((m) => m.toolResults)
-              .toList();
+          final toolResults =
+              result.messages.expand((m) => m.toolResults).toList();
           expect(
             toolResults.any(
               (r) =>

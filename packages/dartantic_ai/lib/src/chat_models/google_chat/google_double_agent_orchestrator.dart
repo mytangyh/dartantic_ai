@@ -111,9 +111,8 @@ class GoogleDoubleAgentOrchestrator extends DefaultStreamingOrchestrator {
 
         // Don't add the message to history yet - we'll get structured output
         // Suppress any text from phase 1
-        final textParts = consolidatedMessage.parts
-            .whereType<TextPart>()
-            .toList();
+        final textParts =
+            consolidatedMessage.parts.whereType<TextPart>().toList();
         if (textParts.isNotEmpty) {
           state.addSuppressedTextParts(textParts);
         }
@@ -153,9 +152,8 @@ class GoogleDoubleAgentOrchestrator extends DefaultStreamingOrchestrator {
       state.requestNextMessagePrefix();
 
       final executionResults = await executeToolBatch(state, toolCalls);
-      final toolResultParts = executionResults
-          .map((result) => result.resultPart)
-          .toList();
+      final toolResultParts =
+          executionResults.map((result) => result.resultPart).toList();
 
       if (toolResultParts.isNotEmpty) {
         final toolResultMessage = ChatMessage(

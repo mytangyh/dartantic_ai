@@ -25,8 +25,8 @@ void main() {
 
         expect(result.assets, isNotEmpty);
         final pdfAsset = result.assets.whereType<DataPart>().firstWhere(
-          (asset) => asset.mimeType == 'application/pdf',
-        );
+              (asset) => asset.mimeType == 'application/pdf',
+            );
         expect(pdfAsset, isA<DataPart>());
         expect(pdfAsset.bytes, isNotEmpty);
       },

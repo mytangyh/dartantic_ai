@@ -29,9 +29,9 @@ class OpenAIResponsesEventMapper {
     required this.storeSession,
     required ContainerFileLoader downloadContainerFile,
   }) : _attachments = AttachmentCollector(
-         logger: _logger,
-         containerFileLoader: downloadContainerFile,
-       ) {
+          logger: _logger,
+          containerFileLoader: downloadContainerFile,
+        ) {
     _initializeHandlers();
   }
 
@@ -53,8 +53,10 @@ class OpenAIResponsesEventMapper {
   /// Set by the chat model when it finds a container_id in a
   /// code_interpreter_call item's raw JSON (not parsed by the SDK).
   String? get containerId => _state.containerId;
-  set containerId(String containerId) {
-    _state.containerId = containerId;
+  set containerId(String? containerId) {
+    // Dart 3.6 requires the setter to accept the nullable getter type.
+    // Preserve the original setter's rejection of null before changing state.
+    _state.containerId = containerId as String;
   }
 
   /// Tool event recorder for streaming tool execution events.

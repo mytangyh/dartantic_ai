@@ -23,5 +23,6 @@ class FallbackEventHandler implements OpenAIResponsesEventHandler {
   Stream<ChatResult<ChatMessage>> handle(
     openai.ResponseStreamEvent event,
     EventMappingState state,
-  ) => toolRecorder.recordToolEventIfNeeded(event, state);
+  ) =>
+      toolRecorder.recordToolEventIfNeeded(event, state);
 }

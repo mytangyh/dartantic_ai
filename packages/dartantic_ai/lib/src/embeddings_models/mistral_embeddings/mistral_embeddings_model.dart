@@ -19,15 +19,16 @@ class MistralEmbeddingsModel
     super.dimensions,
     super.batchSize = 100,
     MistralEmbeddingsModelOptions? options,
-  }) : _client = MistralClient(
-         config: MistralConfig(
-           authProvider: ApiKeyProvider(apiKey),
-           baseUrl: baseUrl?.toString() ?? 'https://api.mistral.ai',
-           defaultHeaders: headers ?? const {},
-         ),
-         httpClient: client,
-       ),
-       super(defaultOptions: options ?? const MistralEmbeddingsModelOptions()) {
+  })  : _client = MistralClient(
+          config: MistralConfig(
+            authProvider: ApiKeyProvider(apiKey),
+            baseUrl: baseUrl?.toString() ?? 'https://api.mistral.ai',
+            defaultHeaders: headers ?? const {},
+          ),
+          httpClient: client,
+        ),
+        super(
+            defaultOptions: options ?? const MistralEmbeddingsModelOptions()) {
     _logger.info(
       'Created Mistral embeddings model: $name '
       '(dimensions: $dimensions, batchSize: $batchSize)',
@@ -100,9 +101,8 @@ class MistralEmbeddingsModel
 
     for (var i = 0; i < chunks.length; i++) {
       final chunk = chunks[i];
-      final chunkCharacters = chunk
-          .map((t) => t.length)
-          .fold(0, (a, b) => a + b);
+      final chunkCharacters =
+          chunk.map((t) => t.length).fold(0, (a, b) => a + b);
 
       _logger.fine(
         'Processing batch ${i + 1}/${chunks.length} '

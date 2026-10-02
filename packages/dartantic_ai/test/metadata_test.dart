@@ -32,7 +32,6 @@ void main() {
           },
           'required': ['name'],
         }),
-
         onCall: (input) => {
           'name': 'Test Recipe',
           'ingredients': ['ingredient1', 'ingredient2'],

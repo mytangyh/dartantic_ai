@@ -23,12 +23,12 @@ class GoogleMediaGenerationModel
     required gl.GenerativeService service,
     required GoogleChatModel chatModel,
     GoogleMediaGenerationModelOptions? defaultOptions,
-  }) : _service = service,
-       _chatModel = chatModel,
-       super(
-         defaultOptions:
-             defaultOptions ?? const GoogleMediaGenerationModelOptions(),
-       );
+  })  : _service = service,
+        _chatModel = chatModel,
+        super(
+          defaultOptions:
+              defaultOptions ?? const GoogleMediaGenerationModelOptions(),
+        );
 
   static final Logger _logger = Logger('dartantic.media.google');
 
@@ -290,8 +290,7 @@ fpdf. For CSV files, use the csv module. Save the file and return it as output.
       model: normalizeGoogleModelName(name),
       contents: contents,
       generationConfig: generationConfig,
-      safetySettings:
-          options.safetySettings?.toSafetySettings() ??
+      safetySettings: options.safetySettings?.toSafetySettings() ??
           const <gl.SafetySetting>[],
     );
   }
@@ -300,13 +299,14 @@ fpdf. For CSV files, use the csv module. Save the file and return it as output.
   @visibleForTesting
   MediaGenerationResult mapResponseForTest(
     gl.GenerateContentResponse response,
-  ) => _mapResponse(
-    response,
-    generationMode: 'test',
-    chunkIndex: 0,
-    resolvedMimeType: 'test/unknown',
-    requestedMimeTypes: const [],
-  );
+  ) =>
+      _mapResponse(
+        response,
+        generationMode: 'test',
+        chunkIndex: 0,
+        resolvedMimeType: 'test/unknown',
+        requestedMimeTypes: const [],
+      );
 
   MediaGenerationResult _mapResponse(
     gl.GenerateContentResponse response, {
@@ -338,9 +338,8 @@ fpdf. For CSV files, use the csv module. Save the file and return it as output.
               part.fileData!.fileUri.isNotEmpty) {
             _logger.info('Received fileData: ${part.fileData!.fileUri}');
             final uri = Uri.parse(part.fileData!.fileUri);
-            final name = uri.pathSegments.isNotEmpty
-                ? uri.pathSegments.last
-                : null;
+            final name =
+                uri.pathSegments.isNotEmpty ? uri.pathSegments.last : null;
             links.add(
               LinkPart(
                 uri,
@@ -496,7 +495,8 @@ FinishReason mapGoogleMediaFinishReason(gl.Candidate_FinishReason? reason) =>
       gl.Candidate_FinishReason.blocklist ||
       gl.Candidate_FinishReason.prohibitedContent ||
       gl.Candidate_FinishReason.imageSafety ||
-      gl.Candidate_FinishReason.spii => FinishReason.contentFilter,
+      gl.Candidate_FinishReason.spii =>
+        FinishReason.contentFilter,
       gl.Candidate_FinishReason.recitation => FinishReason.recitation,
       _ => FinishReason.unspecified,
     };

@@ -150,23 +150,20 @@ class Agent {
 
   /// Gets the fully qualified model name.
   String get model => ModelStringParser(
-    providerName,
-    chatModelName:
-        chatModelName ??
-        (_provider.defaultModelNames.containsKey(ModelKind.chat)
-            ? _provider.defaultModelNames[ModelKind.chat]
-            : null),
-    embeddingsModelName:
-        embeddingsModelName ??
-        (_provider.defaultModelNames.containsKey(ModelKind.embeddings)
-            ? _provider.defaultModelNames[ModelKind.embeddings]
-            : null),
-    mediaModelName:
-        mediaModelName ??
-        (_provider.defaultModelNames.containsKey(ModelKind.media)
-            ? _provider.defaultModelNames[ModelKind.media]
-            : null),
-  ).toString();
+        providerName,
+        chatModelName: chatModelName ??
+            (_provider.defaultModelNames.containsKey(ModelKind.chat)
+                ? _provider.defaultModelNames[ModelKind.chat]
+                : null),
+        embeddingsModelName: embeddingsModelName ??
+            (_provider.defaultModelNames.containsKey(ModelKind.embeddings)
+                ? _provider.defaultModelNames[ModelKind.embeddings]
+                : null),
+        mediaModelName: mediaModelName ??
+            (_provider.defaultModelNames.containsKey(ModelKind.media)
+                ? _provider.defaultModelNames[ModelKind.media]
+                : null),
+      ).toString();
 
   /// Gets the display name.
   String get displayName => _displayName ?? _provider.displayName;
@@ -660,12 +657,12 @@ class Agent {
   };
 
   static Provider _createOpenRouterProvider() => OpenAIProvider(
-    name: 'openrouter',
-    displayName: 'OpenRouter',
-    defaultModelNames: {ModelKind.chat: 'google/gemini-2.5-flash'},
-    baseUrl: Uri.parse('https://openrouter.ai/api/v1'),
-    apiKeyName: 'OPENROUTER_API_KEY',
-  );
+        name: 'openrouter',
+        displayName: 'OpenRouter',
+        defaultModelNames: {ModelKind.chat: 'google/gemini-2.5-flash'},
+        baseUrl: Uri.parse('https://openrouter.ai/api/v1'),
+        apiKeyName: 'OPENROUTER_API_KEY',
+      );
 
   /// Creates a new provider instance by name or alias (case-insensitive).
   ///

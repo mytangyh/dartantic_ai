@@ -16,28 +16,28 @@ enum AnthropicServerSideTool {
 extension AnthropicServerSideToolX on AnthropicServerSideTool {
   /// API tool type identifier.
   String get type => switch (this) {
-    AnthropicServerSideTool.codeInterpreter => 'code_execution_20250825',
-    AnthropicServerSideTool.webSearch => 'web_search_20250305',
-    AnthropicServerSideTool.webFetch => 'web_fetch_20250910',
-  };
+        AnthropicServerSideTool.codeInterpreter => 'code_execution_20250825',
+        AnthropicServerSideTool.webSearch => 'web_search_20250305',
+        AnthropicServerSideTool.webFetch => 'web_fetch_20250910',
+      };
 
   /// API tool name.
   String get apiName => switch (this) {
-    AnthropicServerSideTool.codeInterpreter => 'code_execution',
-    AnthropicServerSideTool.webSearch => 'web_search',
-    AnthropicServerSideTool.webFetch => 'web_fetch',
-  };
+        AnthropicServerSideTool.codeInterpreter => 'code_execution',
+        AnthropicServerSideTool.webSearch => 'web_search',
+        AnthropicServerSideTool.webFetch => 'web_fetch',
+      };
 
   /// Beta headers required to use this tool.
   List<String> get betaFeatures => switch (this) {
-    AnthropicServerSideTool.codeInterpreter => const [
-      'code-execution-2025-05-22',
-      'code-execution-2025-08-25',
-      'files-api-2025-04-14',
-    ],
-    AnthropicServerSideTool.webSearch => const ['web-search-2025-03-05'],
-    AnthropicServerSideTool.webFetch => const ['web-fetch-2025-09-10'],
-  };
+        AnthropicServerSideTool.codeInterpreter => const [
+            'code-execution-2025-05-22',
+            'code-execution-2025-08-25',
+            'files-api-2025-04-14',
+          ],
+        AnthropicServerSideTool.webSearch => const ['web-search-2025-03-05'],
+        AnthropicServerSideTool.webFetch => const ['web-fetch-2025-09-10'],
+      };
 
   /// Whether Anthropic requires an explicit tool choice for this tool.
   bool get requiresExplicitChoice =>

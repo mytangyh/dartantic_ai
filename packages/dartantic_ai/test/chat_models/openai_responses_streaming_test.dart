@@ -41,8 +41,7 @@ void main() {
       expect(
         thinkingBuffer.toString(),
         isNotEmpty,
-        reason:
-            'gpt-5 with detailed reasoning MUST produce thinking output '
+        reason: 'gpt-5 with detailed reasoning MUST produce thinking output '
             'via chunk.thinking',
       );
 
@@ -160,10 +159,8 @@ void main() {
       final outputText = result.output;
 
       // Get the text from the message in history
-      final messageText = history.last.parts
-          .whereType<TextPart>()
-          .map((p) => p.text)
-          .join();
+      final messageText =
+          history.last.parts.whereType<TextPart>().map((p) => p.text).join();
 
       // Check for text duplication
       expect(
@@ -207,10 +204,8 @@ void main() {
           history.addAll(chunk.messages);
         }
 
-        final firstMessageText = history.last.parts
-            .whereType<TextPart>()
-            .map((p) => p.text)
-            .join();
+        final firstMessageText =
+            history.last.parts.whereType<TextPart>().map((p) => p.text).join();
 
         expect(
           _hasTextDuplication(firstMessageText),
@@ -226,10 +221,8 @@ void main() {
           history.addAll(chunk.messages);
         }
 
-        final secondMessageText = history.last.parts
-            .whereType<TextPart>()
-            .map((p) => p.text)
-            .join();
+        final secondMessageText =
+            history.last.parts.whereType<TextPart>().map((p) => p.text).join();
 
         expect(
           _hasTextDuplication(secondMessageText),

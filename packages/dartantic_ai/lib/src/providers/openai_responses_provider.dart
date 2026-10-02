@@ -10,12 +10,9 @@ import '../platform/platform.dart';
 import 'openai_provider_base.dart';
 
 /// Provider for the OpenAI Responses API.
-class OpenAIResponsesProvider
-    extends
-        OpenAIProviderBase<
-          OpenAIResponsesChatModelOptions,
-          OpenAIResponsesMediaGenerationModelOptions
-        > {
+class OpenAIResponsesProvider extends OpenAIProviderBase<
+    OpenAIResponsesChatModelOptions,
+    OpenAIResponsesMediaGenerationModelOptions> {
   /// Creates a new OpenAI Responses provider instance.
   OpenAIResponsesProvider({
     String? apiKey,
@@ -23,16 +20,16 @@ class OpenAIResponsesProvider
     super.aliases,
     super.headers,
   }) : super(
-         name: providerName,
-         displayName: providerDisplayName,
-         defaultModelNames: const {
-           ModelKind.chat: defaultChatModel,
-           ModelKind.embeddings: defaultEmbeddingsModel,
-           ModelKind.media: defaultMediaModel,
-         },
-         apiKey: apiKey ?? tryGetEnv(defaultApiKeyName),
-         apiKeyName: defaultApiKeyName,
-       );
+          name: providerName,
+          displayName: providerDisplayName,
+          defaultModelNames: const {
+            ModelKind.chat: defaultChatModel,
+            ModelKind.embeddings: defaultEmbeddingsModel,
+            ModelKind.media: defaultMediaModel,
+          },
+          apiKey: apiKey ?? tryGetEnv(defaultApiKeyName),
+          apiKeyName: defaultApiKeyName,
+        );
 
   static final Logger _logger = Logger(
     'dartantic.chat.providers.openai_responses',
@@ -135,7 +132,7 @@ class OpenAIResponsesProvider
 
   @override
   MediaGenerationModel<OpenAIResponsesMediaGenerationModelOptions>
-  createMediaModel({
+      createMediaModel({
     String? name,
     List<Tool>? tools,
     OpenAIResponsesMediaGenerationModelOptions? options,

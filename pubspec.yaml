@@ -1,16 +1,72 @@
 name: dartantic
 environment:
-  sdk: ^3.10.0
+  sdk: ^3.6.2
 dev_dependencies:
-  melos: ^7.3.0
+  melos: ^6.3.2
 workspace:
-  - packages/dartantic_ai
   - packages/dartantic_interface
-  - packages/dartantic_chat
-  - packages/dartantic_ai/example
-  - packages/dartantic_chat/example
-  - samples/chatarang
-  - samples/dartantic_cli
+  - packages/dartantic_ai
+
 melos:
+
 dependency_overrides:
-  test_api: 0.7.7
+  anthropic_sdk_dart:
+    git:
+      url: https://github.com/mytangyh/ai_clients_dart.git
+      ref: 076584840dfcf6978d79119a2a663d2ddfd1f043
+      path: packages/anthropic_sdk_dart
+  mistralai_dart:
+    git:
+      url: https://github.com/mytangyh/ai_clients_dart.git
+      ref: 076584840dfcf6978d79119a2a663d2ddfd1f043
+      path: packages/mistralai_dart
+  ollama_dart:
+    git:
+      url: https://github.com/mytangyh/ai_clients_dart.git
+      ref: 076584840dfcf6978d79119a2a663d2ddfd1f043
+      path: packages/ollama_dart
+  openai_dart:
+    git:
+      url: https://github.com/mytangyh/ai_clients_dart.git
+      ref: 076584840dfcf6978d79119a2a663d2ddfd1f043
+      path: packages/openai_dart
+  google_cloud_protobuf:
+    git:
+      url: https://github.com/mytangyh/google-cloud-dart.git
+      ref: 45fa588f37c6f2356444ba43adf7c06b28315025
+      path: generated/google_cloud_protobuf
+  google_cloud_rpc:
+    git:
+      url: https://github.com/mytangyh/google-cloud-dart.git
+      ref: 45fa588f37c6f2356444ba43adf7c06b28315025
+      path: generated/google_cloud_rpc
+  google_cloud_type:
+    git:
+      url: https://github.com/mytangyh/google-cloud-dart.git
+      ref: 45fa588f37c6f2356444ba43adf7c06b28315025
+      path: generated/google_cloud_type
+  google_cloud_longrunning:
+    git:
+      url: https://github.com/mytangyh/google-cloud-dart.git
+      ref: 45fa588f37c6f2356444ba43adf7c06b28315025
+      path: generated/google_cloud_longrunning
+  google_cloud_ai_generativelanguage_v1beta:
+    git:
+      url: https://github.com/mytangyh/google-cloud-dart.git
+      ref: 45fa588f37c6f2356444ba43adf7c06b28315025
+      path: generated/google_cloud_ai_generativelanguage_v1beta
+  sse_channel:
+    git:
+      url: https://github.com/mytangyh/sse_channel.git
+      ref: 1776f9dfa82e9d3a1430f236c02a70a3ded38aee
+      path: .
+  genai_primitives:
+    git:
+      url: https://github.com/mytangyh/genui.git
+      ref: 4f83e1ce5ad1f1df71c15e0c8cd39c481c122c01
+      path: packages/genai_primitives
+  json_schema_builder:
+    git:
+      url: https://github.com/mytangyh/genui.git
+      ref: 4f83e1ce5ad1f1df71c15e0c8cd39c481c122c01
+      path: packages/json_schema_builder

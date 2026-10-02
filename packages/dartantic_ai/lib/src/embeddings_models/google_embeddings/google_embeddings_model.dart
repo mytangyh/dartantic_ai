@@ -24,21 +24,20 @@ class GoogleEmbeddingsModel
     super.dimensions,
     super.batchSize = 100,
     GoogleEmbeddingsModelOptions? options,
-  }) : _httpClient = CustomHttpClient(
-         baseHttpClient: client ?? RetryHttpClient(inner: http.Client()),
-         baseUrl: baseUrl,
-         headers: {'x-goog-api-key': apiKey, ...?headers},
-         queryParams: const {},
-       ),
-       super(
-         name: name ?? defaultName,
-         defaultOptions:
-             options ??
-             GoogleEmbeddingsModelOptions(
-               dimensions: dimensions,
-               batchSize: batchSize,
-             ),
-       ) {
+  })  : _httpClient = CustomHttpClient(
+          baseHttpClient: client ?? RetryHttpClient(inner: http.Client()),
+          baseUrl: baseUrl,
+          headers: {'x-goog-api-key': apiKey, ...?headers},
+          queryParams: const {},
+        ),
+        super(
+          name: name ?? defaultName,
+          defaultOptions: options ??
+              GoogleEmbeddingsModelOptions(
+                dimensions: dimensions,
+                batchSize: batchSize,
+              ),
+        ) {
     _service = gl.GenerativeService(client: _httpClient);
 
     _logger.info(

@@ -20,7 +20,8 @@ class ToolIdHelpers {
     String? providerHint,
     Map<String, dynamic>? arguments,
     int? index,
-  }) => _uuid.v4();
+  }) =>
+      _uuid.v4();
 
   /// Validates that a tool call ID is well-formed.
   /// Any non-empty string is considered valid since providers may use their
@@ -151,11 +152,11 @@ extension ToolIdValidation on ChatMessage {
   List<String> validateToolIds() {
     final errors = <String>[];
     final toolCalls = parts.whereType<ToolPart>().where(
-      (p) => p.kind == ToolPartKind.call,
-    );
+          (p) => p.kind == ToolPartKind.call,
+        );
     final toolResults = parts.whereType<ToolPart>().where(
-      (p) => p.kind == ToolPartKind.result,
-    );
+          (p) => p.kind == ToolPartKind.result,
+        );
 
     // Check for empty IDs
     for (final call in toolCalls) {

@@ -118,10 +118,8 @@ void main() {
               .replaceFirst('```', '')
               .trim();
         } else if (jsonStr.startsWith('```')) {
-          jsonStr = jsonStr
-              .replaceFirst('```', '')
-              .replaceFirst('```', '')
-              .trim();
+          jsonStr =
+              jsonStr.replaceFirst('```', '').replaceFirst('```', '').trim();
         }
 
         // Should return valid JSON

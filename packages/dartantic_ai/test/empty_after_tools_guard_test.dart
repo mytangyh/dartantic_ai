@@ -4,19 +4,14 @@ import 'package:test/test.dart';
 
 import 'test_helpers/run_provider_test.dart';
 
-class DummyProvider
-    extends
-        Provider<
-          ChatModelOptions,
-          EmbeddingsModelOptions,
-          MediaGenerationModelOptions
-        > {
+class DummyProvider extends Provider<ChatModelOptions, EmbeddingsModelOptions,
+    MediaGenerationModelOptions> {
   DummyProvider()
-    : super(
-        name: 'dummy',
-        displayName: 'Dummy',
-        defaultModelNames: const {ModelKind.chat: 'test-model'},
-      );
+      : super(
+          name: 'dummy',
+          displayName: 'Dummy',
+          defaultModelNames: const {ModelKind.chat: 'test-model'},
+        );
 
   DummyChatModel? lastModel;
 
@@ -40,7 +35,8 @@ class DummyProvider
   EmbeddingsModel<EmbeddingsModelOptions> createEmbeddingsModel({
     String? name,
     EmbeddingsModelOptions? options,
-  }) => throw UnsupportedError('Embeddings not supported in DummyProvider');
+  }) =>
+      throw UnsupportedError('Embeddings not supported in DummyProvider');
 
   @override
   Stream<ModelInfo> listModels() async* {}
@@ -56,7 +52,7 @@ class DummyProvider
 
 class DummyChatModel extends ChatModel<ChatModelOptions> {
   DummyChatModel({required super.name, super.tools, super.temperature})
-    : super(defaultOptions: const ChatModelOptions());
+      : super(defaultOptions: const ChatModelOptions());
 
   int sendCalls = 0;
 
@@ -71,8 +67,8 @@ class DummyChatModel extends ChatModel<ChatModelOptions> {
     // Stage 1: No tool results yet -> issue a single tool call
     final hasToolResults = messages.any(
       (m) => m.parts.whereType<ToolPart>().any(
-        (p) => p.kind == ToolPartKind.result,
-      ),
+            (p) => p.kind == ToolPartKind.result,
+          ),
     );
 
     if (!hasToolResults) {
@@ -111,22 +107,17 @@ class DummyChatModel extends ChatModel<ChatModelOptions> {
 }
 
 // Wrapper around real providers to avoid network; returns in-memory model
-class WrapperProvider
-    extends
-        Provider<
-          ChatModelOptions,
-          EmbeddingsModelOptions,
-          MediaGenerationModelOptions
-        > {
+class WrapperProvider extends Provider<ChatModelOptions, EmbeddingsModelOptions,
+    MediaGenerationModelOptions> {
   WrapperProvider(Provider base)
-    : super(
-        name: 'wrap-${base.name}',
-        displayName: 'Wrapper(${base.displayName})',
-        defaultModelNames: {
-          ModelKind.chat: base.defaultModelNames[ModelKind.chat] ?? 'model',
-        },
-        aliases: base.aliases,
-      );
+      : super(
+          name: 'wrap-${base.name}',
+          displayName: 'Wrapper(${base.displayName})',
+          defaultModelNames: {
+            ModelKind.chat: base.defaultModelNames[ModelKind.chat] ?? 'model',
+          },
+          aliases: base.aliases,
+        );
 
   late DummyModel lastModel;
 
@@ -137,13 +128,15 @@ class WrapperProvider
     double? temperature,
     bool enableThinking = false,
     ChatModelOptions? options,
-  }) => lastModel = DummyModel(name: name ?? 'model');
+  }) =>
+      lastModel = DummyModel(name: name ?? 'model');
 
   @override
   EmbeddingsModel<EmbeddingsModelOptions> createEmbeddingsModel({
     String? name,
     EmbeddingsModelOptions? options,
-  }) => throw UnsupportedError('Embeddings not supported in WrapperProvider');
+  }) =>
+      throw UnsupportedError('Embeddings not supported in WrapperProvider');
 
   @override
   Stream<ModelInfo> listModels() async* {}
@@ -153,12 +146,13 @@ class WrapperProvider
     String? name,
     List<Tool>? tools,
     MediaGenerationModelOptions? options,
-  }) => throw UnsupportedError('Media not supported in WrapperProvider');
+  }) =>
+      throw UnsupportedError('Media not supported in WrapperProvider');
 }
 
 class DummyModel extends ChatModel<ChatModelOptions> {
   DummyModel({required super.name})
-    : super(defaultOptions: const ChatModelOptions());
+      : super(defaultOptions: const ChatModelOptions());
 
   int sendCalls = 0;
 
@@ -171,8 +165,8 @@ class DummyModel extends ChatModel<ChatModelOptions> {
     sendCalls++;
     final hasToolResults = messages.any(
       (m) => m.parts.whereType<ToolPart>().any(
-        (p) => p.kind == ToolPartKind.result,
-      ),
+            (p) => p.kind == ToolPartKind.result,
+          ),
     );
 
     if (!hasToolResults) {

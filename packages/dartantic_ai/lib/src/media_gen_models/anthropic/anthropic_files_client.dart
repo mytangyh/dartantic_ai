@@ -15,10 +15,10 @@ class AnthropicFilesClient {
     Uri? baseUrl,
     http.Client? client,
     Map<String, String>? headers,
-  }) : _betaHeader = _composeBetaHeader(betaFeatures),
-       _baseUri = baseUrl ?? Uri.parse('https://api.anthropic.com/'),
-       _client = client ?? RetryHttpClient(inner: http.Client()),
-       _customHeaders = headers ?? const {};
+  })  : _betaHeader = _composeBetaHeader(betaFeatures),
+        _baseUri = baseUrl ?? Uri.parse('https://api.anthropic.com/'),
+        _client = client ?? RetryHttpClient(inner: http.Client()),
+        _customHeaders = headers ?? const {};
 
   static final Logger _logger = Logger('dartantic.media.anthropic.files');
 
@@ -129,12 +129,12 @@ class AnthropicFilesClient {
   }
 
   Map<String, String> _headers({required String accept}) => {
-    'x-api-key': apiKey,
-    'anthropic-version': '2023-06-01',
-    'anthropic-beta': _betaHeader,
-    'accept': accept,
-    ..._customHeaders,
-  };
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-beta': _betaHeader,
+        'accept': accept,
+        ..._customHeaders,
+      };
 
   /// Releases the underlying HTTP client.
   void close() {

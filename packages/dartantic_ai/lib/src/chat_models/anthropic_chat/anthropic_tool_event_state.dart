@@ -26,9 +26,9 @@ class AnthropicEventMappingState {
 
   /// Produces a deep copy of the aggregated tool events.
   Map<String, List<Map<String, Object?>>> toMetadata() => {
-    for (final entry in toolEventLog.entries)
-      if (entry.value.isNotEmpty) entry.key: _copyEventList(entry.value),
-  };
+        for (final entry in toolEventLog.entries)
+          if (entry.value.isNotEmpty) entry.key: _copyEventList(entry.value),
+      };
 
   /// Clears any accumulated tool state after a message completes.
   void reset() {
@@ -39,7 +39,8 @@ class AnthropicEventMappingState {
 
   List<Map<String, Object?>> _copyEventList(
     List<Map<String, Object?>> source,
-  ) => source.map(Map<String, Object?>.from).toList();
+  ) =>
+      source.map(Map<String, Object?>.from).toList();
 
   static List<Map<String, Object?>> _createEventList() =>
       <Map<String, Object?>>[];

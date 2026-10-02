@@ -25,30 +25,26 @@ const String _defaultEmbeddingsModelName = 'gemini-embedding-001';
 const String _defaultMediaModelName = 'gemini-2.5-flash-image';
 
 /// Provider for Google Gemini native API.
-class GoogleProvider
-    extends
-        Provider<
-          GoogleChatModelOptions,
-          GoogleEmbeddingsModelOptions,
-          GoogleMediaGenerationModelOptions
-        >
-    implements ChatOrchestratorProvider {
+class GoogleProvider extends Provider<
+    GoogleChatModelOptions,
+    GoogleEmbeddingsModelOptions,
+    GoogleMediaGenerationModelOptions> implements ChatOrchestratorProvider {
   /// Creates a new Google AI provider instance.
   ///
   /// [apiKey]: The API key to use for the Google AI API.
   GoogleProvider({String? apiKey, super.baseUrl, super.headers})
-    : super(
-        apiKey: apiKey ?? tryGetEnv(defaultApiKeyName),
-        apiKeyName: defaultApiKeyName,
-        name: 'google',
-        displayName: 'Google',
-        defaultModelNames: {
-          ModelKind.chat: _defaultChatModelName,
-          ModelKind.embeddings: _defaultEmbeddingsModelName,
-          ModelKind.media: _defaultMediaModelName,
-        },
-        aliases: const ['gemini'],
-      );
+      : super(
+          apiKey: apiKey ?? tryGetEnv(defaultApiKeyName),
+          apiKeyName: defaultApiKeyName,
+          name: 'google',
+          displayName: 'Google',
+          defaultModelNames: {
+            ModelKind.chat: _defaultChatModelName,
+            ModelKind.embeddings: _defaultEmbeddingsModelName,
+            ModelKind.media: _defaultMediaModelName,
+          },
+          aliases: const ['gemini'],
+        );
 
   static final Logger _logger = Logger('dartantic.chat.providers.google');
 

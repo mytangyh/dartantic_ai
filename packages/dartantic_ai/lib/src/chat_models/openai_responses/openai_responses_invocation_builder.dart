@@ -147,8 +147,7 @@ class OpenAIResponsesInvocationBuilder {
     final history = OpenAIResponsesMessageMapper.mapHistory(
       messages,
       store: store,
-      imageDetail:
-          options?.imageDetail ??
+      imageDetail: options?.imageDetail ??
           defaultOptions.imageDetail ??
           openai.ImageDetail.auto,
     );
@@ -190,11 +189,9 @@ class OpenAIResponsesInvocationBuilder {
           options?.fileSearchConfig ?? defaultOptions.fileSearchConfig,
       webSearchConfig:
           options?.webSearchConfig ?? defaultOptions.webSearchConfig,
-      codeInterpreterConfig:
-          options?.codeInterpreterConfig ??
+      codeInterpreterConfig: options?.codeInterpreterConfig ??
           defaultOptions.codeInterpreterConfig,
-      imageGenerationConfig:
-          options?.imageGenerationConfig ??
+      imageGenerationConfig: options?.imageGenerationConfig ??
           defaultOptions.imageGenerationConfig,
     );
 

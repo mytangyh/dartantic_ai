@@ -17,12 +17,12 @@ class MediaGenerationResult extends LanguageModelResult<List<Part>> {
     Map<String, dynamic> metadata = const {},
     super.usage,
     super.id,
-  }) : _links = List<LinkPart>.unmodifiable(links),
-       _messages = List<ChatMessage>.unmodifiable(messages),
-       super(
-         output: List<Part>.unmodifiable(assets),
-         metadata: Map<String, dynamic>.unmodifiable(metadata),
-       );
+  })  : _links = List<LinkPart>.unmodifiable(links),
+        _messages = List<ChatMessage>.unmodifiable(messages),
+        super(
+          output: List<Part>.unmodifiable(assets),
+          metadata: Map<String, dynamic>.unmodifiable(metadata),
+        );
 
   /// Convenience getter for access to the emitted assets.
   List<Part> get assets => output;

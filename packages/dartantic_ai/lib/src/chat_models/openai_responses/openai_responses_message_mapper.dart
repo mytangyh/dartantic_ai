@@ -95,11 +95,9 @@ class OpenAIResponsesMessageMapper {
     // No pending items in dartantic - tools are executed synchronously
     final items = <openai.Item>[];
 
-    for (
-      var i = sessionResolution.firstMessageIndex;
-      i < messages.length;
-      i++
-    ) {
+    for (var i = sessionResolution.firstMessageIndex;
+        i < messages.length;
+        i++) {
       final message = messages[i];
       items.addAll(_mapMessageParts(message, imageDetail: imageDetail));
     }
@@ -129,15 +127,13 @@ class OpenAIResponsesMessageMapper {
     required bool store,
     required int startIndex,
   }) {
-    final session = store
-        ? _findLatestSession(messages, from: startIndex)
-        : null;
+    final session =
+        store ? _findLatestSession(messages, from: startIndex) : null;
 
     // Get the response ID from the most recent message's session metadata.
     // This becomes the "previous" response ID for the current request.
-    final previousResponseId = store
-        ? OpenAIResponsesMetadata.responseId(session?.data)
-        : null;
+    final previousResponseId =
+        store ? OpenAIResponsesMetadata.responseId(session?.data) : null;
 
     var firstMessageIndex = session == null ? startIndex : session.index + 1;
     if (firstMessageIndex < startIndex) firstMessageIndex = startIndex;
@@ -205,8 +201,8 @@ class OpenAIResponsesMessageMapper {
     final role = isSystemMessage
         ? 'system'
         : isUserMessage
-        ? 'user'
-        : 'assistant';
+            ? 'user'
+            : 'assistant';
 
     void flushContent() {
       if (content.isEmpty) return;
@@ -216,8 +212,7 @@ class OpenAIResponsesMessageMapper {
           openai.MessageItem(
             role: openai.MessageRole.assistant,
             content: List.of(content),
-            id:
-                '$_syntheticMessageIdPrefix'
+            id: '$_syntheticMessageIdPrefix'
                 '${DateTime.now().millisecondsSinceEpoch}',
             status: openai.ItemStatus.completed,
           ),

@@ -98,10 +98,8 @@ void main() {
             reason: 'First response should store session metadata',
           );
 
-          final firstSessionId =
-              (history.last.metadata['_responses_session']!
-                      as Map<String, Object?>)['response_id']!
-                  as String;
+          final firstSessionId = (history.last.metadata['_responses_session']!
+              as Map<String, Object?>)['response_id']! as String;
 
           // Step 2: Use a different provider (OpenAI standard)
           final agent2 = Agent('openai');
@@ -153,8 +151,7 @@ void main() {
           expect(
             sentMessageCounts.first,
             equals(5),
-            reason:
-                'Second Responses call should only send messages '
+            reason: 'Second Responses call should only send messages '
                 'after first session',
           );
 
@@ -177,10 +174,8 @@ void main() {
             reason: 'Second Responses call should store session metadata',
           );
 
-          final secondSessionId =
-              (history.last.metadata['_responses_session']!
-                      as Map<String, Object?>)['response_id']!
-                  as String;
+          final secondSessionId = (history.last.metadata['_responses_session']!
+              as Map<String, Object?>)['response_id']! as String;
 
           expect(
             secondSessionId,
@@ -241,10 +236,8 @@ void main() {
           reason: 'Streaming should preserve session metadata',
         );
 
-        final firstSessionId =
-            (history.last.metadata['_responses_session']!
-                    as Map<String, Object?>)['response_id']!
-                as String;
+        final firstSessionId = (history.last.metadata['_responses_session']!
+            as Map<String, Object?>)['response_id']! as String;
 
         // Interleave with non-Responses provider
         final agent2 = Agent('openai');
@@ -290,10 +283,8 @@ void main() {
           final result1 = await agent1.send('First message.', history: history);
           history.addAll(result1.messages);
 
-          final firstSessionId =
-              (history.last.metadata['_responses_session']!
-                      as Map<String, Object?>)['response_id']!
-                  as String;
+          final firstSessionId = (history.last.metadata['_responses_session']!
+              as Map<String, Object?>)['response_id']! as String;
 
           // Interleave with other provider
           final agent2 = Agent('openai');
@@ -311,10 +302,8 @@ void main() {
           );
           history.addAll(result3.messages);
 
-          final secondSessionId =
-              (history.last.metadata['_responses_session']!
-                      as Map<String, Object?>)['response_id']!
-                  as String;
+          final secondSessionId = (history.last.metadata['_responses_session']!
+              as Map<String, Object?>)['response_id']! as String;
 
           // More interleaving
           final agent4 = Agent('openai');

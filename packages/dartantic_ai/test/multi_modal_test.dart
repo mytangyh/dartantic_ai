@@ -30,12 +30,12 @@ void main() {
 
   // Helper to get vision-capable model name for vision-only providers
   String getVisionModelName(Provider provider) => switch (provider.name) {
-    'together' => 'Qwen/Qwen2.5-VL-72B-Instruct',
-    'ollama' => 'llava:7b',
-    'ollama-openai' => 'llava:7b',
-    'cohere' => 'c4ai-aya-vision-8b',
-    _ => provider.defaultModelNames[ModelKind.chat] ?? '',
-  };
+        'together' => 'Qwen/Qwen2.5-VL-72B-Instruct',
+        'ollama' => 'llava:7b',
+        'ollama-openai' => 'llava:7b',
+        'cohere' => 'c4ai-aya-vision-8b',
+        _ => provider.defaultModelNames[ModelKind.chat] ?? '',
+      };
 
   // Helper to run tests on general-purpose providers
   void runGeneralPurposeTest(
@@ -50,15 +50,13 @@ void main() {
         expect(
           defaultModel,
           isNotNull,
-          reason:
-              'Provider ${provider.name} should expose a default '
+          reason: 'Provider ${provider.name} should expose a default '
               'chat model for multi-modal usage',
         );
         expect(
           defaultModel!.isNotEmpty,
           isTrue,
-          reason:
-              'Provider ${provider.name} default chat model '
+          reason: 'Provider ${provider.name} default chat model '
               'should not be empty',
         );
 
@@ -80,8 +78,7 @@ void main() {
       expect(
         modelName.isNotEmpty,
         isTrue,
-        reason:
-            'Provider ${provider.name} should supply a '
+        reason: 'Provider ${provider.name} should supply a '
             'vision-capable model name',
       );
 

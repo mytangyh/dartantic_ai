@@ -28,13 +28,13 @@ class GoogleChatModel extends ChatModel<GoogleChatModelOptions> {
     super.temperature,
     bool enableThinking = false,
     super.defaultOptions = const GoogleChatModelOptions(),
-  }) : _enableThinking = enableThinking,
-       _httpClient = CustomHttpClient(
-         baseHttpClient: client ?? RetryHttpClient(inner: http.Client()),
-         baseUrl: baseUrl,
-         headers: {'x-goog-api-key': apiKey, ...?headers},
-         queryParams: const {},
-       ) {
+  })  : _enableThinking = enableThinking,
+        _httpClient = CustomHttpClient(
+          baseHttpClient: client ?? RetryHttpClient(inner: http.Client()),
+          baseUrl: baseUrl,
+          headers: {'x-goog-api-key': apiKey, ...?headers},
+          queryParams: const {},
+        ) {
     _logger.info(
       'Creating Google model: $name '
       'with ${super.tools?.length ?? 0} tools, temp: $temperature, '
@@ -95,8 +95,7 @@ class GoogleChatModel extends ChatModel<GoogleChatModelOptions> {
     // Google doesn't support server-side tools + outputSchema simultaneously.
     // When outputSchema is provided, exclude server-side tools (double agent
     // phase 2). This matches the behavior for user-defined tools below.
-    final enableCodeExecution =
-        outputSchema == null &&
+    final enableCodeExecution = outputSchema == null &&
         serverSideTools.contains(GoogleServerSideTool.codeExecution);
 
     final generationConfig = _buildGenerationConfig(
@@ -116,9 +115,8 @@ class GoogleChatModel extends ChatModel<GoogleChatModelOptions> {
 
     // Google doesn't support tools + outputSchema simultaneously.
     // When outputSchema is provided, exclude tools (double agent phase 2).
-    final toolsToSend = outputSchema != null
-        ? const <Tool>[]
-        : (tools ?? const <Tool>[]);
+    final toolsToSend =
+        outputSchema != null ? const <Tool>[] : (tools ?? const <Tool>[]);
 
     final toolConfig = _buildToolConfig(options);
 
@@ -129,11 +127,9 @@ class GoogleChatModel extends ChatModel<GoogleChatModelOptions> {
       safetySettings: safetySettings ?? const [],
       generationConfig: generationConfig,
       toolConfig: toolConfig,
-      tools:
-          toolsToSend.toToolList(
+      tools: toolsToSend.toToolList(
             enableCodeExecution: enableCodeExecution,
-            enableGoogleSearch:
-                outputSchema == null &&
+            enableGoogleSearch: outputSchema == null &&
                 serverSideTools.contains(GoogleServerSideTool.googleSearch),
           ) ??
           const [],
@@ -170,8 +166,7 @@ class GoogleChatModel extends ChatModel<GoogleChatModelOptions> {
     GoogleChatModelOptions? options,
     Schema? outputSchema,
   }) {
-    final stopSequences =
-        options?.stopSequences ??
+    final stopSequences = options?.stopSequences ??
         defaultOptions.stopSequences ??
         const <String>[];
 
@@ -206,8 +201,7 @@ class GoogleChatModel extends ChatModel<GoogleChatModelOptions> {
     if (!_enableThinking) return null;
 
     // Default to dynamic thinking (-1) if no budget specified
-    final thinkingBudget =
-        options?.thinkingBudgetTokens ??
+    final thinkingBudget = options?.thinkingBudgetTokens ??
         defaultOptions.thinkingBudgetTokens ??
         -1;
 

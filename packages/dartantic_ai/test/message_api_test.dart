@@ -604,12 +604,10 @@ void main() {
           ),
         ];
 
-        final userMessages = conversation
-            .where((m) => m.role == ChatMessageRole.user)
-            .toList();
-        final modelMessages = conversation
-            .where((m) => m.role == ChatMessageRole.model)
-            .toList();
+        final userMessages =
+            conversation.where((m) => m.role == ChatMessageRole.user).toList();
+        final modelMessages =
+            conversation.where((m) => m.role == ChatMessageRole.model).toList();
 
         expect(userMessages, hasLength(2));
         expect(modelMessages, hasLength(2));
@@ -652,9 +650,8 @@ void main() {
           ),
         ];
 
-        final allToolResults = conversation
-            .expand((m) => m.toolResults)
-            .toList();
+        final allToolResults =
+            conversation.expand((m) => m.toolResults).toList();
 
         expect(allToolResults, hasLength(3));
         expect(allToolResults[0].callId, equals('call_1'));

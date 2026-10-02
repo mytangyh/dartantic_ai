@@ -182,8 +182,7 @@ extension ChatResultMapper on mistral.ChatCompletionResponse {
     );
 
     // Extract tool calls from the response
-    final toolCallParts =
-        choice.message.toolCalls
+    final toolCallParts = choice.message.toolCalls
             ?.map(
               (tc) => ToolPart.call(
                 callId: tc.id,
@@ -241,8 +240,7 @@ extension CreateChatCompletionStreamResponseMapper
 
     // Extract tool calls from streaming delta
     // Note: Mistral sends complete tool calls, not incremental deltas
-    final toolCallParts =
-        choice.delta.toolCalls
+    final toolCallParts = choice.delta.toolCalls
             ?.map(
               (tc) => ToolPart.call(
                 callId: tc.id,

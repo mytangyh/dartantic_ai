@@ -95,9 +95,8 @@ void main() {
 
           // Should orchestrate multiple tools
           expect(result.output, isNotEmpty);
-          final toolResults = result.messages
-              .expand((m) => m.toolResults)
-              .toList();
+          final toolResults =
+              result.messages.expand((m) => m.toolResults).toList();
           expect(toolResults.length, greaterThanOrEqualTo(2));
         },
         requiredCaps: {ProviderTestCaps.multiToolCalls},
@@ -269,9 +268,8 @@ void main() {
 
           // Should handle tool execution gracefully
           expect(result.output, isNotEmpty);
-          final toolResults = result.messages
-              .expand((m) => m.toolResults)
-              .toList();
+          final toolResults =
+              result.messages.expand((m) => m.toolResults).toList();
           expect(toolResults, isNotEmpty);
         },
         requiredCaps: {ProviderTestCaps.multiToolCalls},
@@ -291,9 +289,8 @@ void main() {
 
           // Should handle complex tool result aggregation
           expect(result.output, isNotEmpty);
-          final toolResults = result.messages
-              .expand((m) => m.toolResults)
-              .toList();
+          final toolResults =
+              result.messages.expand((m) => m.toolResults).toList();
           expect(toolResults.length, greaterThanOrEqualTo(2));
         },
         requiredCaps: {ProviderTestCaps.multiToolCalls},

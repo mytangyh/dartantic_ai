@@ -15,8 +15,8 @@ class AttachmentCollector {
   AttachmentCollector({
     required Logger logger,
     required ContainerFileLoader containerFileLoader,
-  }) : _logger = logger,
-       _containerFileLoader = containerFileLoader;
+  })  : _logger = logger,
+        _containerFileLoader = containerFileLoader;
 
   final Logger _logger;
   final ContainerFileLoader _containerFileLoader;
@@ -26,7 +26,7 @@ class AttachmentCollector {
   final Set<int> _completedImageIndices = {};
 
   final Set<({String containerId, String fileId, String? fileName})>
-  _containerFiles = {};
+      _containerFiles = {};
 
   /// Records a partial image update during streaming.
   void recordPartialImage({required String base64, required int index}) {
@@ -87,7 +87,7 @@ class AttachmentCollector {
       // signature
       final inferredMime =
           lookupMimeType('image.bin', headerBytes: decodedBytes) ??
-          'application/octet-stream';
+              'application/octet-stream';
       final extension = PartHelpers.extensionFromMimeType(inferredMime);
       final baseName = 'image_$index';
 
@@ -112,16 +112,14 @@ class AttachmentCollector {
       _logger.info('Downloading container file: $fileId from $containerId');
       final data = await _containerFileLoader(containerId, fileId);
 
-      final inferredMime =
-          data.mimeType ??
+      final inferredMime = data.mimeType ??
           lookupMimeType(
             data.fileName ?? citationFileName ?? '',
             headerBytes: data.bytes,
           ) ??
           'application/octet-stream';
       final extension = PartHelpers.extensionFromMimeType(inferredMime);
-      final fileName =
-          data.fileName ??
+      final fileName = data.fileName ??
           citationFileName ??
           (extension != null ? '$fileId.$extension' : fileId);
 

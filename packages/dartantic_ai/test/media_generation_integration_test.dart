@@ -41,12 +41,10 @@ void main() {
       (provider) async {
         final agent = Agent(provider.name);
 
-        final chunks = await agent
-            .generateMediaStream(
-              'Create a simple abstract icon consisting of three dots.',
-              mimeTypes: const ['image/png'],
-            )
-            .toList();
+        final chunks = await agent.generateMediaStream(
+          'Create a simple abstract icon consisting of three dots.',
+          mimeTypes: const ['image/png'],
+        ).toList();
 
         expect(chunks, isNotEmpty);
         final anyAsset = chunks.any((chunk) => chunk.assets.isNotEmpty);
@@ -78,8 +76,8 @@ void main() {
         );
 
         final pdfAssets = result.assets.whereType<DataPart>().where(
-          (asset) => asset.mimeType.contains('pdf'),
-        );
+              (asset) => asset.mimeType.contains('pdf'),
+            );
 
         expect(
           pdfAssets.isNotEmpty,
@@ -113,11 +111,11 @@ void main() {
         );
 
         final textAssets = result.assets.whereType<DataPart>().where(
-          (asset) =>
-              asset.mimeType.contains('text') ||
-              asset.mimeType.contains('csv') ||
-              (asset.name?.endsWith('.csv') ?? false),
-        );
+              (asset) =>
+                  asset.mimeType.contains('text') ||
+                  asset.mimeType.contains('csv') ||
+                  (asset.name?.endsWith('.csv') ?? false),
+            );
 
         expect(
           textAssets.isNotEmpty,

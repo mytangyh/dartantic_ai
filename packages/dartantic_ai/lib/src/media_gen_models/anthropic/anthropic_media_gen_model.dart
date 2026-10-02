@@ -94,7 +94,8 @@ file names in your final response.
     ChatResult<ChatMessage> result, {
     required List<String> requestedMimeTypes,
     required int chunkIndex,
-  }) => _mapChunk(result, requestedMimeTypes, chunkIndex);
+  }) =>
+      _mapChunk(result, requestedMimeTypes, chunkIndex);
 
   MediaGenerationResult _mapChunk(
     ChatResult<ChatMessage> result,
@@ -183,16 +184,17 @@ file names in your final response.
   /// options.
   static AnthropicChatOptions _toChatOptions(
     _ResolvedAnthropicMediaSettings settings,
-  ) => AnthropicChatOptions(
-    maxTokens: settings.maxTokens,
-    stopSequences: settings.stopSequences,
-    temperature: settings.temperature,
-    topK: settings.topK,
-    topP: settings.topP,
-    userId: settings.userId,
-    thinkingBudgetTokens: settings.thinkingBudgetTokens,
-    // serverTools are set by the provider - don't override them here
-  );
+  ) =>
+      AnthropicChatOptions(
+        maxTokens: settings.maxTokens,
+        stopSequences: settings.stopSequences,
+        temperature: settings.temperature,
+        topK: settings.topK,
+        topP: settings.topP,
+        userId: settings.userId,
+        thinkingBudgetTokens: settings.thinkingBudgetTokens,
+        // serverTools are set by the provider - don't override them here
+      );
 
   String _augmentPrompt(String prompt, List<String> mimeTypes) {
     if (prompt.trim().isEmpty) return prompt;

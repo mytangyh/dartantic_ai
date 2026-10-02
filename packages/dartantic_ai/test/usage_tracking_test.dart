@@ -110,8 +110,7 @@ void main() {
             expect(
               result.usage!.totalTokens,
               greaterThanOrEqualTo(expectedSum),
-              reason:
-                  'Provider ${provider.name} total should be at least '
+              reason: 'Provider ${provider.name} total should be at least '
                   'prompt + response tokens',
             );
           }
@@ -241,16 +240,14 @@ void main() {
           expect(
             streamUsage,
             isNotNull,
-            reason:
-                'Provider ${provider.name} MUST provide usage '
+            reason: 'Provider ${provider.name} MUST provide usage '
                 'in streaming mode',
           );
 
           expect(
             streamUsage!.totalTokens,
             greaterThan(0),
-            reason:
-                'Provider ${provider.name} MUST track total tokens '
+            reason: 'Provider ${provider.name} MUST track total tokens '
                 'in streaming',
           );
 
@@ -291,12 +288,14 @@ void main() {
         const promptCostPer1k = 0.00015;
         const responseCostPer1k = 0.0006;
 
-        final shortCost =
-            (shortResult.usage?.promptTokens ?? 0) / 1000 * promptCostPer1k +
+        final shortCost = (shortResult.usage?.promptTokens ?? 0) /
+                1000 *
+                promptCostPer1k +
             (shortResult.usage?.responseTokens ?? 0) / 1000 * responseCostPer1k;
 
-        final longCost =
-            (longResult.usage?.promptTokens ?? 0) / 1000 * promptCostPer1k +
+        final longCost = (longResult.usage?.promptTokens ?? 0) /
+                1000 *
+                promptCostPer1k +
             (longResult.usage?.responseTokens ?? 0) / 1000 * responseCostPer1k;
 
         // Ensure we have valid costs before comparing
@@ -305,11 +304,9 @@ void main() {
 
         // Long responses should cost more than short ones if both have usage
         // data available
-        final hasShortUsage =
-            (shortResult.usage?.promptTokens ?? 0) > 0 ||
+        final hasShortUsage = (shortResult.usage?.promptTokens ?? 0) > 0 ||
             (shortResult.usage?.responseTokens ?? 0) > 0;
-        final hasLongUsage =
-            (longResult.usage?.promptTokens ?? 0) > 0 ||
+        final hasLongUsage = (longResult.usage?.promptTokens ?? 0) > 0 ||
             (longResult.usage?.responseTokens ?? 0) > 0;
 
         if (hasShortUsage && hasLongUsage) {

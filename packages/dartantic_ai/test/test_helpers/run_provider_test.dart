@@ -134,18 +134,17 @@ void runProviderTest(
           ),
         ]
       : Agent.allProviders
-            .where(
-              (p) =>
-                  requiredCaps == null ||
-                  providerHasTestCaps(p.name, requiredCaps),
-            )
-            .map(
-              (p) => (
-                provider: p,
-                defaultLabel:
-                    '${p.name}:${p.defaultModelNames[ModelKind.chat]}',
-              ),
-            );
+          .where(
+            (p) =>
+                requiredCaps == null ||
+                providerHasTestCaps(p.name, requiredCaps),
+          )
+          .map(
+            (p) => (
+              provider: p,
+              defaultLabel: '${p.name}:${p.defaultModelNames[ModelKind.chat]}',
+            ),
+          );
 
   for (final entry in providerEntries) {
     final provider = entry.provider;

@@ -78,9 +78,8 @@ void main() {
         expect(result.messages, isNotEmpty);
 
         // Should have executed both tools
-        final toolResults = result.messages
-            .expand((m) => m.toolResults)
-            .toList();
+        final toolResults =
+            result.messages.expand((m) => m.toolResults).toList();
         expect(toolResults.length, greaterThanOrEqualTo(1));
       });
 
@@ -186,7 +185,8 @@ void main() {
         timeout: const Timeout(Duration(minutes: 3)),
       );
 
-      runToolProviderTest('multi-turn conversation with multiple tool calls '
+      runToolProviderTest(
+          'multi-turn conversation with multiple tool calls '
           'and message validation', (provider) async {
         // COMPREHENSIVE TEST: Validates that ALL tool-capable providers
         // maintain proper message history (user/model alternation) through:
@@ -228,9 +228,8 @@ void main() {
         expect(result.output, isNotEmpty);
 
         // Verify multiple tools were called
-        final toolResults = result.messages
-            .expand((m) => m.toolResults)
-            .toList();
+        final toolResults =
+            result.messages.expand((m) => m.toolResults).toList();
         expect(
           toolResults.length,
           greaterThanOrEqualTo(1),
@@ -255,8 +254,7 @@ void main() {
         expect(
           history.length,
           greaterThanOrEqualTo(8), // At least 4 turns * 2 messages each
-          reason:
-              '${provider.name} should have complete '
+          reason: '${provider.name} should have complete '
               'conversation history',
         );
       }, timeout: const Timeout(Duration(minutes: 3)));
@@ -377,9 +375,7 @@ void main() {
         final futures = <Future<ChatResult<String>>>[];
         for (var i = 0; i < 3; i++) {
           futures.add(
-            agent
-                .send('Request $i')
-                .catchError(
+            agent.send('Request $i').catchError(
                   (e) => ChatResult<String>(
                     id: 'error-$i',
                     output: 'Error: $e',
@@ -395,12 +391,10 @@ void main() {
         expect(results, hasLength(3));
 
         // Should have a mix of successes and/or handled errors
-        final successCount = results
-            .where((r) => !r.output.startsWith('Error:'))
-            .length;
-        final errorCount = results
-            .where((r) => r.output.startsWith('Error:'))
-            .length;
+        final successCount =
+            results.where((r) => !r.output.startsWith('Error:')).length;
+        final errorCount =
+            results.where((r) => r.output.startsWith('Error:')).length;
 
         expect(successCount + errorCount, equals(3));
       });
@@ -597,8 +591,7 @@ function fibonacci(n) {
         (provider) async {
           final agent = Agent(provider.name, tools: [stringTool]);
 
-          const longPrompt =
-              'Use string_tool with input "step1", '
+          const longPrompt = 'Use string_tool with input "step1", '
               'then analyze the result, '
               'then explain what happened, '
               'then provide a summary, '
@@ -636,12 +629,12 @@ function fibonacci(n) {
       test('OpenAI-compatible custom provider pattern', () async {
         // Register OpenAI-compatible provider with custom baseUrl
         Agent.providerFactories['custom-openai-test'] = () => OpenAIProvider(
-          name: 'custom-openai-test',
-          displayName: 'Custom OpenAI',
-          defaultModelNames: {ModelKind.chat: 'gpt-4o-mini'},
-          baseUrl: Uri.parse('https://api.openai.com/v1'),
-          apiKeyName: 'OPENAI_API_KEY',
-        );
+              name: 'custom-openai-test',
+              displayName: 'Custom OpenAI',
+              defaultModelNames: {ModelKind.chat: 'gpt-4o-mini'},
+              baseUrl: Uri.parse('https://api.openai.com/v1'),
+              apiKeyName: 'OPENAI_API_KEY',
+            );
 
         final agent = Agent('custom-openai-test');
         final result = await agent.send('Hello from custom provider');
@@ -659,7 +652,7 @@ function fibonacci(n) {
 /// Simple echo provider for testing custom provider patterns
 class _EchoChatModel extends ChatModel<ChatModelOptions> {
   _EchoChatModel({required super.name})
-    : super(defaultOptions: const ChatModelOptions());
+      : super(defaultOptions: const ChatModelOptions());
 
   @override
   Stream<ChatResult<ChatMessage>> sendStream(
@@ -677,19 +670,14 @@ class _EchoChatModel extends ChatModel<ChatModelOptions> {
   void dispose() {}
 }
 
-class _EchoProvider
-    extends
-        Provider<
-          ChatModelOptions,
-          EmbeddingsModelOptions,
-          MediaGenerationModelOptions
-        > {
+class _EchoProvider extends Provider<ChatModelOptions, EmbeddingsModelOptions,
+    MediaGenerationModelOptions> {
   _EchoProvider()
-    : super(
-        name: 'echo-test',
-        displayName: 'Echo Test Provider',
-        defaultModelNames: {ModelKind.chat: 'echo'},
-      );
+      : super(
+          name: 'echo-test',
+          displayName: 'Echo Test Provider',
+          defaultModelNames: {ModelKind.chat: 'echo'},
+        );
 
   @override
   ChatModel<ChatModelOptions> createChatModel({
@@ -698,20 +686,23 @@ class _EchoProvider
     double? temperature,
     bool enableThinking = false,
     ChatModelOptions? options,
-  }) => _EchoChatModel(name: name ?? defaultModelNames[ModelKind.chat]!);
+  }) =>
+      _EchoChatModel(name: name ?? defaultModelNames[ModelKind.chat]!);
 
   @override
   EmbeddingsModel<EmbeddingsModelOptions> createEmbeddingsModel({
     String? name,
     EmbeddingsModelOptions? options,
-  }) => throw UnimplementedError('Echo provider does not support embeddings');
+  }) =>
+      throw UnimplementedError('Echo provider does not support embeddings');
 
   @override
   MediaGenerationModel<MediaGenerationModelOptions> createMediaModel({
     String? name,
     List<Tool>? tools,
     MediaGenerationModelOptions? options,
-  }) => throw UnsupportedError('Echo provider does not support media');
+  }) =>
+      throw UnsupportedError('Echo provider does not support media');
 
   @override
   Stream<ModelInfo> listModels() async* {

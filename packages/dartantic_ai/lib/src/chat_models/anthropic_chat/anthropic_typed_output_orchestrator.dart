@@ -29,7 +29,8 @@ class AnthropicTypedOutputOrchestrator extends DefaultStreamingOrchestrator {
   bool allowTextStreaming(
     StreamingState state,
     ChatResult<ChatMessage> result,
-  ) => false; // Never stream text, always wait for return_result
+  ) =>
+      false; // Never stream text, always wait for return_result
 
   @override
   Future<void> beforeModelStream(
@@ -59,9 +60,8 @@ class AnthropicTypedOutputOrchestrator extends DefaultStreamingOrchestrator {
     final returnResultCall = _findReturnResultCall(consolidatedMessage);
     if (returnResultCall != null) {
       state.addSuppressedMetadata({...consolidatedMessage.metadata});
-      final textParts = consolidatedMessage.parts
-          .whereType<TextPart>()
-          .toList();
+      final textParts =
+          consolidatedMessage.parts.whereType<TextPart>().toList();
       if (textParts.isNotEmpty) {
         state.addSuppressedTextParts(textParts);
       }
@@ -162,9 +162,8 @@ class AnthropicTypedOutputOrchestrator extends DefaultStreamingOrchestrator {
 
     if (returnResult != null) {
       final rawResult = returnResult.resultPart.result;
-      final jsonOutput = rawResult is String
-          ? rawResult
-          : rawResult?.toString() ?? '';
+      final jsonOutput =
+          rawResult is String ? rawResult : rawResult?.toString() ?? '';
       final mergedMetadata = <String, dynamic>{
         ...state.suppressedToolCallMetadata,
         'toolId': returnResult.toolPart.callId,

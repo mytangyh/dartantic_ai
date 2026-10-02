@@ -64,11 +64,12 @@ class LoggingOptions {
     Level? level,
     String? filter,
     void Function(LogRecord)? onRecord,
-  }) => LoggingOptions(
-    level: level ?? this.level,
-    filter: filter ?? this.filter,
-    onRecord: onRecord ?? this.onRecord,
-  );
+  }) =>
+      LoggingOptions(
+        level: level ?? this.level,
+        filter: filter ?? this.filter,
+        onRecord: onRecord ?? this.onRecord,
+      );
 
   @override
   String toString() => 'LoggingOptions(level: $level, filter: "$filter")';

@@ -78,14 +78,15 @@ class Chat {
     String prompt, {
     List<Part> attachments = const [],
     Schema? outputSchema,
-  }) => agent
-      .sendStream(
+  }) =>
+      agent
+          .sendStream(
         prompt,
         attachments: attachments,
         outputSchema: outputSchema,
         history: history,
       )
-      .map((r) {
+          .map((r) {
         history.addAll(r.messages);
         return r;
       });

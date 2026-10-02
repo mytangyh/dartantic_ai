@@ -8,28 +8,23 @@ import '../embeddings_models/mistral_embeddings/mistral_embeddings.dart';
 import '../platform/platform.dart';
 
 /// Provider for Mistral AI (OpenAI-compatible).
-class MistralProvider
-    extends
-        Provider<
-          MistralChatModelOptions,
-          MistralEmbeddingsModelOptions,
-          MediaGenerationModelOptions
-        > {
+class MistralProvider extends Provider<MistralChatModelOptions,
+    MistralEmbeddingsModelOptions, MediaGenerationModelOptions> {
   /// Creates a new Mistral provider instance.
   ///
   /// [apiKey]: The API key for the Mistral provider.
   MistralProvider({String? apiKey, super.headers})
-    : super(
-        apiKey: apiKey ?? tryGetEnv(defaultApiKeyName),
-        name: 'mistral',
-        displayName: 'Mistral',
-        defaultModelNames: {
-          ModelKind.chat: 'mistral-medium-latest',
-          ModelKind.embeddings: 'mistral-embed',
-        },
-        baseUrl: null,
-        aliases: ['mistralai'],
-      );
+      : super(
+          apiKey: apiKey ?? tryGetEnv(defaultApiKeyName),
+          name: 'mistral',
+          displayName: 'Mistral',
+          defaultModelNames: {
+            ModelKind.chat: 'mistral-medium-latest',
+            ModelKind.embeddings: 'mistral-embed',
+          },
+          baseUrl: null,
+          aliases: ['mistralai'],
+        );
 
   static final Logger _logger = Logger('dartantic.chat.providers.mistral');
 

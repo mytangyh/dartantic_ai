@@ -7,12 +7,10 @@ import '../embeddings_models/openai_embeddings/openai_embeddings_model_options.d
 import '../shared/openai_utils.dart';
 
 /// Shared OpenAI provider functionality for canonical and Responses variants.
-abstract class OpenAIProviderBase<
-  TChatOptions extends ChatModelOptions,
-  TMediaOptions extends MediaGenerationModelOptions
->
-    extends
-        Provider<TChatOptions, OpenAIEmbeddingsModelOptions, TMediaOptions> {
+abstract class OpenAIProviderBase<TChatOptions extends ChatModelOptions,
+        TMediaOptions extends MediaGenerationModelOptions>
+    extends Provider<TChatOptions, OpenAIEmbeddingsModelOptions,
+        TMediaOptions> {
   /// Common constructor for OpenAI providers.
   OpenAIProviderBase({
     required super.name,

@@ -137,8 +137,8 @@ extension MessageListMapper on List<ChatMessage> {
     for (var i = 0; i < nonSystemMessages.length; i++) {
       final message = nonSystemMessages[i];
       final hasToolResults = message.parts.whereType<ToolPart>().any(
-        (p) => p.kind == ToolPartKind.result,
-      );
+            (p) => p.kind == ToolPartKind.result,
+          );
 
       if (hasToolResults) {
         final toolMessages = <ChatMessage>[message];
@@ -146,8 +146,8 @@ extension MessageListMapper on List<ChatMessage> {
         while (j < nonSystemMessages.length) {
           final next = nonSystemMessages[j];
           final nextHasToolResults = next.parts.whereType<ToolPart>().any(
-            (p) => p.kind == ToolPartKind.result,
-          );
+                (p) => p.kind == ToolPartKind.result,
+              );
           if (!nextHasToolResults) break;
           toolMessages.add(next);
           j++;
@@ -225,12 +225,13 @@ extension MessageListMapper on List<ChatMessage> {
     required bool includeToolCalls,
     required bool includeToolResults,
     Map<String, dynamic> messageMetadata = const {},
-  }) => mapPartsToGoogle(
-    parts,
-    includeToolCalls: includeToolCalls,
-    includeToolResults: includeToolResults,
-    messageMetadata: messageMetadata,
-  );
+  }) =>
+      mapPartsToGoogle(
+        parts,
+        includeToolCalls: includeToolCalls,
+        includeToolResults: includeToolResults,
+        messageMetadata: messageMetadata,
+      );
 }
 
 /// Extension on [gl.GenerateContentResponse] to convert to [ChatResult].
@@ -431,19 +432,19 @@ extension GenerateContentResponseMapper on gl.GenerateContentResponse {
       case gl.Candidate_FinishReason.maxTokens:
         return FinishReason.length;
       case gl.Candidate_FinishReason.safety ||
-          gl.Candidate_FinishReason.blocklist ||
-          gl.Candidate_FinishReason.prohibitedContent ||
-          gl.Candidate_FinishReason.imageSafety ||
-          gl.Candidate_FinishReason.spii:
+            gl.Candidate_FinishReason.blocklist ||
+            gl.Candidate_FinishReason.prohibitedContent ||
+            gl.Candidate_FinishReason.imageSafety ||
+            gl.Candidate_FinishReason.spii:
         return FinishReason.contentFilter;
       case gl.Candidate_FinishReason.recitation:
         return FinishReason.recitation;
       case gl.Candidate_FinishReason.malformedFunctionCall:
         return FinishReason.unspecified;
       case gl.Candidate_FinishReason.language ||
-          gl.Candidate_FinishReason.other ||
-          gl.Candidate_FinishReason.finishReasonUnspecified ||
-          null:
+            gl.Candidate_FinishReason.other ||
+            gl.Candidate_FinishReason.finishReasonUnspecified ||
+            null:
         return FinishReason.unspecified;
     }
     return FinishReason.unspecified;
@@ -505,17 +506,17 @@ extension ChatToolListMapper on List<Tool>? {
 
     final functionDeclarations = hasTools
         ? this!
-              .map(
-                (tool) => gl.FunctionDeclaration(
-                  name: tool.name,
-                  description: tool.description,
-                  // Use native JSON Schema support via parametersJsonSchema
-                  parametersJsonSchema: ProtobufValueHelpers.valueFromJson(
-                    Map<String, dynamic>.from(tool.inputSchema.value),
-                  ),
+            .map(
+              (tool) => gl.FunctionDeclaration(
+                name: tool.name,
+                description: tool.description,
+                // Use native JSON Schema support via parametersJsonSchema
+                parametersJsonSchema: ProtobufValueHelpers.valueFromJson(
+                  Map<String, dynamic>.from(tool.inputSchema.value),
                 ),
-              )
-              .toList(growable: false)
+              ),
+            )
+            .toList(growable: false)
         : null;
 
     final codeExecution = enableCodeExecution ? gl.CodeExecution() : null;

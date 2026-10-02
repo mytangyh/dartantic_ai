@@ -587,21 +587,16 @@ class TestChatOptions extends ChatModelOptions {
 class TestEmbeddingsOptions extends EmbeddingsModelOptions {}
 
 // Test provider that requires a fake API key
-class TestProvider
-    extends
-        Provider<
-          TestChatOptions,
-          TestEmbeddingsOptions,
-          MediaGenerationModelOptions
-        > {
+class TestProvider extends Provider<TestChatOptions, TestEmbeddingsOptions,
+    MediaGenerationModelOptions> {
   TestProvider()
-    : super(
-        name: 'test-provider',
-        displayName: 'Test Provider',
-        defaultModelNames: {ModelKind.chat: 'test-model'},
-        baseUrl: Uri.parse('https://test.example.com'),
-        apiKeyName: 'TEST_PROVIDER_API_KEY_THAT_DOES_NOT_EXIST',
-      );
+      : super(
+          name: 'test-provider',
+          displayName: 'Test Provider',
+          defaultModelNames: {ModelKind.chat: 'test-model'},
+          baseUrl: Uri.parse('https://test.example.com'),
+          apiKeyName: 'TEST_PROVIDER_API_KEY_THAT_DOES_NOT_EXIST',
+        );
 
   @override
   ChatModel<TestChatOptions> createChatModel({
@@ -647,7 +642,7 @@ class TestProvider
 class TestChatModel extends ChatModel<TestChatOptions> {
   // ignore: avoid_unused_constructor_parameters
   TestChatModel({required super.name, String? apiKey, Uri? baseUrl})
-    : super(defaultOptions: const TestChatOptions()) {
+      : super(defaultOptions: const TestChatOptions()) {
     // Model is responsible for resolving API key from environment if not
     // provided
     final _ = apiKey ?? platform.getEnv(apiKeyName);

@@ -31,16 +31,17 @@ mcp.Transport getTransport({
   required Uri? url,
   Map<String, String>? headers,
   Map<String, String>? requestInit,
-}) => switch (kind) {
-  McpServerKind.local => throw Exception(
-    'Local MCP servers are not supported on web.',
-  ),
-  McpServerKind.remote => mcp.StreamableHttpClientTransport(
-    url!,
-    opts: headers == null
-        ? null
-        : mcp.StreamableHttpClientTransportOptions(
-            requestInit: {'headers': headers},
-          ),
-  ),
-};
+}) =>
+    switch (kind) {
+      McpServerKind.local => throw Exception(
+          'Local MCP servers are not supported on web.',
+        ),
+      McpServerKind.remote => mcp.StreamableHttpClientTransport(
+          url!,
+          opts: headers == null
+              ? null
+              : mcp.StreamableHttpClientTransportOptions(
+                  requestInit: {'headers': headers},
+                ),
+        ),
+    };

@@ -190,8 +190,7 @@ void main() {
           expect(
             response.output.toLowerCase(),
             contains('purple'),
-            reason:
-                'Provider ${provider.name} should remember '
+            reason: 'Provider ${provider.name} should remember '
                 'conversation context',
           );
         },

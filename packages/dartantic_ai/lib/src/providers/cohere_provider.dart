@@ -16,17 +16,17 @@ class CohereProvider extends OpenAIProvider {
   ///
   /// [apiKey]: The API key for the Cohere provider.
   CohereProvider({String? apiKey, super.headers})
-    : super(
-        apiKey: apiKey ?? tryGetEnv(defaultApiKeyName),
-        apiKeyName: defaultApiKeyName,
-        name: 'cohere',
-        displayName: 'Cohere',
-        defaultModelNames: {
-          ModelKind.chat: 'command-r-08-2024',
-          ModelKind.embeddings: 'embed-v4.0',
-        },
-        baseUrl: cohereDefaultBaseUrl,
-      );
+      : super(
+          apiKey: apiKey ?? tryGetEnv(defaultApiKeyName),
+          apiKeyName: defaultApiKeyName,
+          name: 'cohere',
+          displayName: 'Cohere',
+          defaultModelNames: {
+            ModelKind.chat: 'command-r-08-2024',
+            ModelKind.embeddings: 'embed-v4.0',
+          },
+          baseUrl: cohereDefaultBaseUrl,
+        );
 
   /// Logger for Cohere chat provider operations.
   static final Logger _logger = Logger('dartantic.chat.providers.cohere');
@@ -114,9 +114,8 @@ class CohereProvider extends OpenAIProvider {
         final firstHeader = headerCells.first.text.trim().toLowerCase();
         if (firstHeader == 'model name') {
           // Try to determine kind from headers or parse as chat/embedding/other
-          final headers = headerCells
-              .map((th) => th.text.trim().toLowerCase())
-              .toList();
+          final headers =
+              headerCells.map((th) => th.text.trim().toLowerCase()).toList();
           // Parse the table, passing headers for classification
           yield* _parseCohereTableWithHeaders(table, headers);
         }

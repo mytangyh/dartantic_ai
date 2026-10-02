@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 /// Loads a container file by identifier and returns its resolved data.
-typedef ContainerFileLoader =
-    Future<ContainerFileData> Function(String containerId, String fileId);
+typedef ContainerFileLoader = Future<ContainerFileData> Function(
+    String containerId, String fileId);
 
 /// Resolved data for a downloaded container file, including metadata hints.
 class ContainerFileData {

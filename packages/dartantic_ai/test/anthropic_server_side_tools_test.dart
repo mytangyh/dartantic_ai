@@ -100,12 +100,10 @@ void main() {
         final streamedEvents = <Map<String, Object?>>[];
         List<MediaGenerationResult> chunks;
         try {
-          chunks = await agent
-              .generateMediaStream(
-                pdfPrompt,
-                mimeTypes: const ['application/pdf'],
-              )
-              .toList();
+          chunks = await agent.generateMediaStream(
+            pdfPrompt,
+            mimeTypes: const ['application/pdf'],
+          ).toList();
         } on ApiException catch (error) {
           if (error.message.contains('credit balance is too low')) {
             return;
@@ -177,8 +175,8 @@ void main() {
         }
 
         final pdfAssets = result.assets.whereType<DataPart>().where(
-          (asset) => asset.mimeType.contains('pdf'),
-        );
+              (asset) => asset.mimeType.contains('pdf'),
+            );
         expect(pdfAssets, isNotEmpty);
         expect(pdfAssets.first.bytes.isNotEmpty, isTrue);
         final metadataList = <Map<String, Object?>>[];

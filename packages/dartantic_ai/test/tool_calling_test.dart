@@ -34,9 +34,8 @@ void main() {
         );
 
         // Check that tool was executed and result is in messages
-        final toolResults = response.messages
-            .expand((msg) => msg.toolResults)
-            .toList();
+        final toolResults =
+            response.messages.expand((msg) => msg.toolResults).toList();
         expect(toolResults, hasLength(1));
         expect(toolResults.first.result, equals('String result: hello'));
       });
@@ -52,9 +51,8 @@ void main() {
         );
 
         // Check that tool was executed and result is in messages
-        final toolResults = response.messages
-            .expand((msg) => msg.toolResults)
-            .toList();
+        final toolResults =
+            response.messages.expand((msg) => msg.toolResults).toList();
         expect(toolResults, hasLength(1));
         expect(toolResults.first.result, equals('String result: hello'));
       });
@@ -65,9 +63,8 @@ void main() {
         final response = await agent.send('Use the int_tool with value 42');
 
         // Check that tool was executed and result is in messages
-        final toolResults = response.messages
-            .expand((msg) => msg.toolResults)
-            .toList();
+        final toolResults =
+            response.messages.expand((msg) => msg.toolResults).toList();
         expect(toolResults, hasLength(1));
         final result = toolResults.first.result;
         // Tool result may be serialized as string or kept as int
@@ -85,9 +82,8 @@ void main() {
         );
 
         // Check that tool was executed and result is in messages
-        final toolResults = response.messages
-            .expand((msg) => msg.toolResults)
-            .toList();
+        final toolResults =
+            response.messages.expand((msg) => msg.toolResults).toList();
         expect(toolResults, hasLength(1));
         final result = toolResults.first.result;
         // Result might be serialized as string or kept as map
@@ -114,9 +110,8 @@ void main() {
           );
 
           // Check that tool was executed and result is in messages
-          final toolResults = response.messages
-              .expand((msg) => msg.toolResults)
-              .toList();
+          final toolResults =
+              response.messages.expand((msg) => msg.toolResults).toList();
           expect(
             toolResults,
             isNotEmpty,
@@ -160,9 +155,8 @@ void main() {
         );
 
         // Check that both tools were executed and results are in messages
-        final toolResults = response.messages
-            .expand((msg) => msg.toolResults)
-            .toList();
+        final toolResults =
+            response.messages.expand((msg) => msg.toolResults).toList();
         expect(toolResults, hasLength(2));
         expect(toolResults[0].result, equals('Step 1 processed: hello'));
         expect(toolResults[1].result, contains('Step 2 processed:'));
@@ -180,9 +174,8 @@ void main() {
         );
 
         // Check that all three tools were executed and results are in messages
-        final toolResults = response.messages
-            .expand((msg) => msg.toolResults)
-            .toList();
+        final toolResults =
+            response.messages.expand((msg) => msg.toolResults).toList();
         expect(toolResults, hasLength(3));
 
         // Check for specific results (order may vary)
@@ -201,9 +194,8 @@ void main() {
         );
 
         // Check that the tool was called twice
-        final toolResults = response.messages
-            .expand((msg) => msg.toolResults)
-            .toList();
+        final toolResults =
+            response.messages.expand((msg) => msg.toolResults).toList();
         expect(toolResults, hasLength(2));
 
         // Check for specific results (order may vary)
@@ -236,9 +228,8 @@ void main() {
         );
 
         // Should have at least one tool result
-        final toolResults = response.messages
-            .expand((msg) => msg.toolResults)
-            .toList();
+        final toolResults =
+            response.messages.expand((msg) => msg.toolResults).toList();
         expect(toolResults, isNotEmpty);
 
         // All results should be correct
@@ -264,9 +255,8 @@ void main() {
           );
 
           // Check that both tools were executed
-          final toolResults = response.messages
-              .expand((msg) => msg.toolResults)
-              .toList();
+          final toolResults =
+              response.messages.expand((msg) => msg.toolResults).toList();
           expect(
             toolResults,
             hasLength(2),
@@ -278,8 +268,7 @@ void main() {
           expect(
             results,
             contains('String result: Welcome message for ${provider.name}'),
-            reason:
-                'Provider ${provider.name} should execute '
+            reason: 'Provider ${provider.name} should execute '
                 'string_tool correctly',
           );
           expect(
@@ -302,9 +291,8 @@ void main() {
           );
 
           // Should have called weather tool twice
-          final toolResults = response.messages
-              .expand((msg) => msg.toolResults)
-              .toList();
+          final toolResults =
+              response.messages.expand((msg) => msg.toolResults).toList();
           expect(
             toolResults,
             hasLength(greaterThanOrEqualTo(2)),
@@ -342,9 +330,8 @@ void main() {
           );
 
           // Should have at least one tool result
-          final toolResults = response.messages
-              .expand((msg) => msg.toolResults)
-              .toList();
+          final toolResults =
+              response.messages.expand((msg) => msg.toolResults).toList();
           expect(
             toolResults,
             isNotEmpty,
@@ -423,9 +410,8 @@ void main() {
           final response = await agent.send('Call the unicode_tool');
           expect(response.output, isNotEmpty);
 
-          final toolResults = response.messages
-              .expand((msg) => msg.toolResults)
-              .toList();
+          final toolResults =
+              response.messages.expand((msg) => msg.toolResults).toList();
           expect(toolResults, isNotEmpty);
           expect(toolResults.first.result, contains('👋'));
           expect(toolResults.first.result, contains('世界'));
@@ -461,9 +447,8 @@ void main() {
           final agent = Agent(provider.name, tools: [noParamsTool]);
 
           final response = await agent.send('Call the no_params_tool');
-          final toolResults = response.messages
-              .expand((msg) => msg.toolResults)
-              .toList();
+          final toolResults =
+              response.messages.expand((msg) => msg.toolResults).toList();
           expect(toolResults, isNotEmpty);
           for (final tr in toolResults) {
             expect(tr.result, equals('Called with no parameters'));
@@ -492,9 +477,8 @@ void main() {
         (provider) async {
           final agent = Agent(provider.name, tools: [noParamsTool]);
           final response = await agent.send('Call the no_params_tool');
-          final toolResults = response.messages
-              .expand((msg) => msg.toolResults)
-              .toList();
+          final toolResults =
+              response.messages.expand((msg) => msg.toolResults).toList();
           expect(toolResults, hasLength(1));
           expect(toolResults.first.result, equals('Called with no parameters'));
         },
@@ -565,8 +549,7 @@ void main() {
               contains('exception'),
               contains('problem'),
             ),
-            reason:
-                'Provider ${provider.name} should report tool errors '
+            reason: 'Provider ${provider.name} should report tool errors '
                 'gracefully',
           );
         },
@@ -655,9 +638,8 @@ void main() {
         );
 
         // Check that the tool was called
-        final toolResults = response.messages
-            .expand((msg) => msg.toolResults)
-            .toList();
+        final toolResults =
+            response.messages.expand((msg) => msg.toolResults).toList();
         expect(toolResults, hasLength(1));
         expect(toolResults.first.result, equals('String result: hello'));
 
@@ -717,9 +699,8 @@ void main() {
           );
 
           // Check that the tool was called
-          final toolResults = response.messages
-              .expand((msg) => msg.toolResults)
-              .toList();
+          final toolResults =
+              response.messages.expand((msg) => msg.toolResults).toList();
           expect(
             toolResults,
             hasLength(1),
@@ -728,8 +709,7 @@ void main() {
           expect(
             toolResults.first.result,
             equals('String result: hello ${provider.name}'),
-            reason:
-                'Provider ${provider.name} should return correct tool '
+            reason: 'Provider ${provider.name} should return correct tool '
                 'result',
           );
 
@@ -743,13 +723,11 @@ void main() {
               contains('hello ${provider.name}'),
               contains('string result'),
             ),
-            reason:
-                'Provider ${provider.name} should mention the tool '
+            reason: 'Provider ${provider.name} should mention the tool '
                 'result in response',
           );
         },
         requiredCaps: {ProviderTestCaps.multiToolCalls},
-
         timeout: const Timeout(Duration(minutes: 3)),
       );
     });
@@ -774,9 +752,8 @@ void main() {
           );
 
           // Verify tool was actually called
-          final toolResults = response.messages
-              .expand((msg) => msg.toolResults)
-              .toList();
+          final toolResults =
+              response.messages.expand((msg) => msg.toolResults).toList();
           expect(
             toolResults,
             isNotEmpty,
@@ -784,7 +761,6 @@ void main() {
           );
         },
         requiredCaps: {ProviderTestCaps.multiToolCalls},
-
         timeout: const Timeout(Duration(minutes: 2)),
       );
     });

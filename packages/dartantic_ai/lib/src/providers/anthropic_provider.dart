@@ -12,33 +12,28 @@ import '../platform/platform.dart';
 import 'chat_orchestrator_provider.dart';
 
 /// Provider for Anthropic Claude native API.
-class AnthropicProvider
-    extends
-        Provider<
-          AnthropicChatOptions,
-          EmbeddingsModelOptions,
-          AnthropicMediaGenerationModelOptions
-        >
-    implements ChatOrchestratorProvider {
+class AnthropicProvider extends Provider<
+    AnthropicChatOptions,
+    EmbeddingsModelOptions,
+    AnthropicMediaGenerationModelOptions> implements ChatOrchestratorProvider {
   /// Creates a new Anthropic provider instance.
   ///
   /// [apiKey]: The API key to use for the Anthropic API.
   AnthropicProvider({String? apiKey, super.headers})
-    : super(
-        apiKey:
-            apiKey ??
-            tryGetEnv(_defaultApiTestKeyName) ??
-            tryGetEnv(defaultApiKeyName),
-        apiKeyName: defaultApiKeyName,
-        name: 'anthropic',
-        displayName: 'Anthropic',
-        defaultModelNames: {
-          ModelKind.chat: 'claude-sonnet-4-0',
-          ModelKind.media: 'claude-sonnet-4-5',
-        },
-        aliases: ['claude'],
-        baseUrl: null,
-      );
+      : super(
+          apiKey: apiKey ??
+              tryGetEnv(_defaultApiTestKeyName) ??
+              tryGetEnv(defaultApiKeyName),
+          apiKeyName: defaultApiKeyName,
+          name: 'anthropic',
+          displayName: 'Anthropic',
+          defaultModelNames: {
+            ModelKind.chat: 'claude-sonnet-4-0',
+            ModelKind.media: 'claude-sonnet-4-5',
+          },
+          aliases: ['claude'],
+          baseUrl: null,
+        );
 
   static final Logger _logger = Logger('dartantic.chat.providers.anthropic');
   static const _defaultApiTestKeyName = 'ANTHROPIC_API_TEST_KEY';
@@ -102,7 +97,8 @@ class AnthropicProvider
   EmbeddingsModel<EmbeddingsModelOptions> createEmbeddingsModel({
     String? name,
     EmbeddingsModelOptions? options,
-  }) => throw Exception('Anthropic does not support embeddings models');
+  }) =>
+      throw Exception('Anthropic does not support embeddings models');
 
   @override
   Stream<ModelInfo> listModels() async* {
@@ -147,12 +143,13 @@ class AnthropicProvider
     required Schema? outputSchema,
     required List<Tool>? tools,
     bool hasServerSideTools = false,
-  }) => (
-    outputSchema == null
-        ? const DefaultStreamingOrchestrator()
-        : const AnthropicTypedOutputOrchestrator(),
-    _toolsToUse(outputSchema: outputSchema, tools: tools),
-  );
+  }) =>
+      (
+        outputSchema == null
+            ? const DefaultStreamingOrchestrator()
+            : const AnthropicTypedOutputOrchestrator(),
+        _toolsToUse(outputSchema: outputSchema, tools: tools),
+      );
 
   // If outputSchema is provided, add the return_result tool to the tools list
   // otherwise return the tools list unchanged. The return_result tool is
@@ -206,8 +203,7 @@ class AnthropicProvider
       throw ArgumentError('$apiKeyName is required for $displayName provider');
     }
 
-    final modelName =
-        name ??
+    final modelName = name ??
         defaultModelNames[ModelKind.media] ??
         defaultModelNames[ModelKind.chat]!;
     final resolvedOptions =

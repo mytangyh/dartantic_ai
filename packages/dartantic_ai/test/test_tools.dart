@@ -44,14 +44,12 @@ final stringTool = Tool<Map<String, dynamic>>(
     },
     'required': ['input'],
   }),
-
   onCall: (input) => 'String result: ${input['input']}',
 );
 
 final emptyStringTool = Tool<Map<String, dynamic>>(
   name: 'empty_string_tool',
   description: 'Returns an empty string',
-
   onCall: (_) => '',
 );
 
@@ -66,7 +64,6 @@ final intTool = Tool<Map<String, dynamic>>(
     },
     'required': ['value'],
   }),
-
   onCall: (input) {
     final value = input['value'];
     if (value is int) return value;
@@ -85,7 +82,6 @@ final doubleTool = Tool<Map<String, dynamic>>(
     },
     'required': ['value'],
   }),
-
   onCall: (input) => input['value'] as double,
 );
 
@@ -100,7 +96,6 @@ final boolTool = Tool<Map<String, dynamic>>(
     },
     'required': ['value'],
   }),
-
   onCall: (input) => input['value'] as bool,
 );
 
@@ -108,7 +103,6 @@ final boolTool = Tool<Map<String, dynamic>>(
 final nullTool = Tool<Map<String, dynamic>>(
   name: 'null_tool',
   description: 'Returns null',
-
   onCall: (_) => null,
 );
 
@@ -126,14 +120,12 @@ final listTool = Tool<Map<String, dynamic>>(
     },
     'required': ['items'],
   }),
-
   onCall: (input) => input['items'] as List,
 );
 
 final emptyListTool = Tool<Map<String, dynamic>>(
   name: 'empty_list_tool',
   description: 'Returns an empty list',
-
   onCall: (_) => [],
 );
 
@@ -148,7 +140,6 @@ final mapTool = Tool<Map<String, dynamic>>(
     },
     'required': ['key', 'value'],
   }),
-
   onCall: (input) => {
     (input['key'] as String?).toString(): input['value'],
     'type': 'map_result',
@@ -165,7 +156,6 @@ final nestedMapTool = Tool<Map<String, dynamic>>(
     },
     'required': ['level'],
   }),
-
   onCall: (input) => {
     'level': input['level'],
     'data': {
@@ -187,7 +177,6 @@ final veryLongStringTool = Tool<Map<String, dynamic>>(
     },
     'required': ['repeat_count'],
   }),
-
   onCall: (input) {
     final count = input['repeat_count'] as int;
     return 'Lorem ipsum dolor sit amet. ' * count;
@@ -197,14 +186,12 @@ final veryLongStringTool = Tool<Map<String, dynamic>>(
 final unicodeTool = Tool<Map<String, dynamic>>(
   name: 'unicode_tool',
   description: 'Returns unicode and emoji characters',
-
   onCall: (_) => '👋 Hello 世界 🌍 नमस्ते мир',
 );
 
 final specialCharsTool = Tool<Map<String, dynamic>>(
   name: 'special_chars_tool',
   description: 'Returns special characters that need escaping',
-
   onCall: (_) =>
       'Line 1\nLine 2\tTabbed\r\nWindows line\n"Quoted"\n\'Single quoted\'',
 );
@@ -220,14 +207,12 @@ final errorTool = Tool<Map<String, dynamic>>(
     },
     'required': ['error_message'],
   }),
-
   onCall: (input) => throw Exception(input['error_message']),
 );
 
 final invalidJsonTool = Tool<Map<String, dynamic>>(
   name: 'invalid_json_tool',
   description: 'Returns a value that might cause JSON encoding issues',
-
   onCall: (_) => double.infinity,
 );
 
@@ -246,7 +231,6 @@ final optionalParamsTool = Tool<Map<String, dynamic>>(
     },
     'required': ['required_param'],
   }),
-
   onCall: (input) => {
     'required': input['required_param'],
     'optional': input['optional_param'] ?? 'default_value',
@@ -264,7 +248,6 @@ final multiStepTool1 = Tool<Map<String, dynamic>>(
     },
     'required': ['input'],
   }),
-
   onCall: (input) => 'Step 1 processed: ${input['input']}',
 );
 
@@ -278,7 +261,6 @@ final multiStepTool2 = Tool<Map<String, dynamic>>(
     },
     'required': ['step1_result'],
   }),
-
   onCall: (input) => 'Step 2 processed: ${input['step1_result']}',
 );
 
@@ -299,7 +281,6 @@ final strictTypeTool = Tool<Map<String, dynamic>>(
     },
     'required': ['string_param', 'int_param', 'bool_param', 'array_param'],
   }),
-
   onCall: (input) => {
     'types_received': {
       'string': input['string_param'].runtimeType.toString(),
@@ -315,53 +296,52 @@ final strictTypeTool = Tool<Map<String, dynamic>>(
 final noParamsTool = Tool<Map<String, dynamic>>(
   name: 'no_params_tool',
   description: 'Tool that takes no parameters',
-
   onCall: (_) => 'Called with no parameters',
 );
 
 /// Returns all test tools for comprehensive testing
 List<Tool> get allTestTools => [
-  stringTool,
-  emptyStringTool,
-  intTool,
-  doubleTool,
-  boolTool,
-  nullTool,
-  listTool,
-  emptyListTool,
-  mapTool,
-  nestedMapTool,
-  veryLongStringTool,
-  unicodeTool,
-  specialCharsTool,
-  errorTool,
-  invalidJsonTool,
-  optionalParamsTool,
-  multiStepTool1,
-  multiStepTool2,
-  strictTypeTool,
-  noParamsTool,
-];
+      stringTool,
+      emptyStringTool,
+      intTool,
+      doubleTool,
+      boolTool,
+      nullTool,
+      listTool,
+      emptyListTool,
+      mapTool,
+      nestedMapTool,
+      veryLongStringTool,
+      unicodeTool,
+      specialCharsTool,
+      errorTool,
+      invalidJsonTool,
+      optionalParamsTool,
+      multiStepTool1,
+      multiStepTool2,
+      strictTypeTool,
+      noParamsTool,
+    ];
 
 /// Returns a subset of tools for basic testing
 List<Tool> get basicTestTools => [
-  stringTool,
-  intTool,
-  boolTool,
-  listTool,
-  mapTool,
-];
+      stringTool,
+      intTool,
+      boolTool,
+      listTool,
+      mapTool,
+    ];
 
 /// Returns tools that test edge cases
 List<Tool> get edgeCaseTools => [
-  emptyStringTool,
-  nullTool,
-  emptyListTool,
-  veryLongStringTool,
-  unicodeTool,
-  specialCharsTool,
-  noParamsTool,
-];
+      emptyStringTool,
+      nullTool,
+      emptyListTool,
+      veryLongStringTool,
+      unicodeTool,
+      specialCharsTool,
+      noParamsTool,
+    ];
 
 /// Returns tools for error testing
 List<Tool> get errorTestTools => [errorTool, invalidJsonTool];
@@ -387,7 +367,6 @@ final fahrenheitToCelsiusTool = Tool<Map<String, dynamic>>(
     },
     'required': ['fahrenheit'],
   }),
-
   onCall: (input) {
     final fahrenheit = input['fahrenheit'] as num;
     final celsius = (fahrenheit - 32) * 5 / 9;
@@ -410,7 +389,6 @@ final temperatureTool = Tool<Map<String, dynamic>>(
     },
     'required': ['location'],
   }),
-
   onCall: (input) {
     final location = input['location'] as String;
     // This is a mock implementation
@@ -443,7 +421,6 @@ final temperatureConverterTool = Tool<Map<String, dynamic>>(
     },
     'required': ['value', 'from_unit', 'to_unit'],
   }),
-
   onCall: (input) {
     final value = input['value'] as num;
     final fromUnit = input['from_unit'] as String;
@@ -454,8 +431,7 @@ final temperatureConverterTool = Tool<Map<String, dynamic>>(
     }
 
     final converted = fromUnit == 'C'
-        ? (value * 9 / 5) +
-              32 // C to F
+        ? (value * 9 / 5) + 32 // C to F
         : (value - 32) * 5 / 9; // F to C
 
     return {
@@ -477,7 +453,6 @@ final distanceCalculatorTool = Tool<Map<String, dynamic>>(
     },
     'required': ['city1', 'city2'],
   }),
-
   onCall: (input) {
     final city1 = input['city1'] as String;
     final city2 = input['city2'] as String;
@@ -501,7 +476,6 @@ final stockPriceTool = Tool<Map<String, dynamic>>(
     },
     'required': ['symbol'],
   }),
-
   onCall: (input) {
     final symbol = input['symbol'] as String;
     // Mock implementation
@@ -531,7 +505,6 @@ final recipeLookupTool = Tool<Map<String, dynamic>>(
     },
     'required': ['recipe_name'],
   }),
-
   onCall: (input) {
     final recipeName = input['recipe_name'] as String;
     // Mock recipe database
@@ -570,12 +543,12 @@ final recipeLookupTool = Tool<Map<String, dynamic>>(
 
 /// Returns example tools for demonstrations
 List<Tool> get exampleTools => [
-  currentDateTimeTool,
-  weatherTool,
-  fahrenheitToCelsiusTool,
-  temperatureTool,
-  temperatureConverterTool,
-  distanceCalculatorTool,
-  stockPriceTool,
-  recipeLookupTool,
-];
+      currentDateTimeTool,
+      weatherTool,
+      fahrenheitToCelsiusTool,
+      temperatureTool,
+      temperatureConverterTool,
+      distanceCalculatorTool,
+      stockPriceTool,
+      recipeLookupTool,
+    ];

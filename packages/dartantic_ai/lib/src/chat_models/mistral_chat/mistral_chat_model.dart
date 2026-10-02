@@ -19,18 +19,18 @@ class MistralChatModel extends ChatModel<MistralChatModelOptions> {
     Uri? baseUrl,
     http.Client? client,
     Map<String, String>? headers,
-  }) : _client = MistralClient(
-         config: MistralConfig(
-           authProvider: ApiKeyProvider(apiKey),
-           baseUrl: baseUrl?.toString() ?? 'https://api.mistral.ai',
-           defaultHeaders: headers ?? const {},
-         ),
-         httpClient: client,
-       ),
-       super(
-         name: name,
-         defaultOptions: defaultOptions ?? const MistralChatModelOptions(),
-       ) {
+  })  : _client = MistralClient(
+          config: MistralConfig(
+            authProvider: ApiKeyProvider(apiKey),
+            baseUrl: baseUrl?.toString() ?? 'https://api.mistral.ai',
+            defaultHeaders: headers ?? const {},
+          ),
+          httpClient: client,
+        ),
+        super(
+          name: name,
+          defaultOptions: defaultOptions ?? const MistralChatModelOptions(),
+        ) {
     _logger.info(
       'Creating Mistral model: $name '
       'with ${tools?.length ?? 0} tools, temp: $temperature',
@@ -98,33 +98,35 @@ class MistralChatModel extends ChatModel<MistralChatModelOptions> {
     double? temperature,
     MistralChatModelOptions? options,
     Schema? outputSchema,
-  }) => ChatCompletionRequest(
-    model: modelName,
-    messages: messages.toChatMessages(),
-    temperature: temperature,
-    topP: options?.topP ?? defaultOptions.topP,
-    maxTokens: options?.maxTokens ?? defaultOptions.maxTokens,
-    safePrompt: options?.safePrompt ?? defaultOptions.safePrompt,
-    randomSeed: options?.randomSeed ?? defaultOptions.randomSeed,
-    tools: tools?.toMistralTools(),
-    stream: true,
-    presencePenalty: options?.presencePenalty ?? defaultOptions.presencePenalty,
-    frequencyPenalty:
-        options?.frequencyPenalty ?? defaultOptions.frequencyPenalty,
-    stop: options?.stop ?? defaultOptions.stop,
-    n: options?.n ?? defaultOptions.n,
-    parallelToolCalls:
-        options?.parallelToolCalls ?? defaultOptions.parallelToolCalls,
-    prediction: options?.prediction ?? defaultOptions.prediction,
-    promptMode: options?.promptMode ?? defaultOptions.promptMode,
-    responseFormat: outputSchema != null
-        ? ResponseFormat.jsonSchema(
-            name: 'output',
-            schema: Map<String, dynamic>.from(outputSchema.value),
-            strict: true,
-          )
-        : null,
-  );
+  }) =>
+      ChatCompletionRequest(
+        model: modelName,
+        messages: messages.toChatMessages(),
+        temperature: temperature,
+        topP: options?.topP ?? defaultOptions.topP,
+        maxTokens: options?.maxTokens ?? defaultOptions.maxTokens,
+        safePrompt: options?.safePrompt ?? defaultOptions.safePrompt,
+        randomSeed: options?.randomSeed ?? defaultOptions.randomSeed,
+        tools: tools?.toMistralTools(),
+        stream: true,
+        presencePenalty:
+            options?.presencePenalty ?? defaultOptions.presencePenalty,
+        frequencyPenalty:
+            options?.frequencyPenalty ?? defaultOptions.frequencyPenalty,
+        stop: options?.stop ?? defaultOptions.stop,
+        n: options?.n ?? defaultOptions.n,
+        parallelToolCalls:
+            options?.parallelToolCalls ?? defaultOptions.parallelToolCalls,
+        prediction: options?.prediction ?? defaultOptions.prediction,
+        promptMode: options?.promptMode ?? defaultOptions.promptMode,
+        responseFormat: outputSchema != null
+            ? ResponseFormat.jsonSchema(
+                name: 'output',
+                schema: Map<String, dynamic>.from(outputSchema.value),
+                strict: true,
+              )
+            : null,
+      );
 
   @override
   void dispose() => _client.close();

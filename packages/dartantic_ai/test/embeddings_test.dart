@@ -259,8 +259,7 @@ void main() {
           expect(
             result.embeddings.length,
             equals(requestedDimensions),
-            reason:
-                'Provider ${provider.name} should return '
+            reason: 'Provider ${provider.name} should return '
                 '$requestedDimensions dimensions',
           );
         },
@@ -290,8 +289,7 @@ void main() {
             expect(
               embedding.length,
               equals(requestedDimensions),
-              reason:
-                  'Provider ${provider.name} should return '
+              reason: 'Provider ${provider.name} should return '
                   '$requestedDimensions dimensions per document',
             );
           }
@@ -393,8 +391,7 @@ void main() {
           expect(
             modelName,
             isNotNull,
-            reason:
-                'Provider ${provider.name} should expose a default '
+            reason: 'Provider ${provider.name} should expose a default '
                 'embeddings model',
           );
 

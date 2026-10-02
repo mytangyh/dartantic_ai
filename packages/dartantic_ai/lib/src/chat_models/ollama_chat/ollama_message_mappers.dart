@@ -84,15 +84,15 @@ o.ChatRequest generateChatCompletionRequest(
 extension OllamaToolListMapper on List<Tool> {
   /// Converts this list of [Tool]s to a list of Ollama SDK [o.ToolDefinition]s.
   List<o.ToolDefinition> toOllamaTools() => map(
-    (tool) => o.ToolDefinition(
-      type: o.ToolType.function,
-      function: o.ToolFunction(
-        name: tool.name,
-        description: tool.description,
-        parameters: Map<String, dynamic>.from(tool.inputSchema.value),
-      ),
-    ),
-  ).toList(growable: false);
+        (tool) => o.ToolDefinition(
+          type: o.ToolType.function,
+          function: o.ToolFunction(
+            name: tool.name,
+            description: tool.description,
+            parameters: Map<String, dynamic>.from(tool.inputSchema.value),
+          ),
+        ),
+      ).toList(growable: false);
 }
 
 /// Extension on [List<Message>] to convert messages to Ollama SDK messages.
@@ -176,15 +176,15 @@ extension MessageListMapper on List<ChatMessage> {
         textContent,
         toolCalls: toolCalls.isNotEmpty
             ? toolCalls
-                  .map(
-                    (p) => o.ToolCall(
-                      function: o.ToolCallFunction(
-                        name: p.toolName,
-                        arguments: p.arguments ?? {},
-                      ),
+                .map(
+                  (p) => o.ToolCall(
+                    function: o.ToolCallFunction(
+                      name: p.toolName,
+                      arguments: p.arguments ?? {},
                     ),
-                  )
-                  .toList(growable: false)
+                  ),
+                )
+                .toList(growable: false)
             : null,
       ),
     ];

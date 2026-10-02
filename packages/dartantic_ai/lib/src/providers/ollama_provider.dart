@@ -7,13 +7,8 @@ import '../embeddings_models/ollama_embeddings/ollama_embeddings_model.dart';
 import '../embeddings_models/ollama_embeddings/ollama_embeddings_model_options.dart';
 
 /// Provider for native Ollama API (local, not OpenAI-compatible).
-class OllamaProvider
-    extends
-        Provider<
-          OllamaChatOptions,
-          OllamaEmbeddingsModelOptions,
-          MediaGenerationModelOptions
-        > {
+class OllamaProvider extends Provider<OllamaChatOptions,
+    OllamaEmbeddingsModelOptions, MediaGenerationModelOptions> {
   /// Creates a new Ollama provider instance.
   OllamaProvider({
     super.name = 'ollama',
@@ -23,15 +18,15 @@ class OllamaProvider
     super.apiKeyName,
     super.headers,
   }) : super(
-         defaultModelNames: {
-           /// Note: llama3.x models have a known issue with spurious content in
-           /// tool calling responses, generating unwanted JSON fragments like
-           /// '", "parameters": {}}' during streaming. qwen2.5:7b-instruct
-           /// provides cleaner tool calling behavior.
-           ModelKind.chat: 'qwen2.5:7b-instruct',
-           ModelKind.embeddings: 'nomic-embed-text',
-         },
-       );
+          defaultModelNames: {
+            /// Note: llama3.x models have a known issue with spurious content in
+            /// tool calling responses, generating unwanted JSON fragments like
+            /// '", "parameters": {}}' during streaming. qwen2.5:7b-instruct
+            /// provides cleaner tool calling behavior.
+            ModelKind.chat: 'qwen2.5:7b-instruct',
+            ModelKind.embeddings: 'nomic-embed-text',
+          },
+        );
 
   static final Logger _logger = Logger('dartantic.chat.providers.ollama');
 

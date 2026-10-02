@@ -128,14 +128,15 @@ class DefaultStreamingOrchestrator implements StreamingOrchestrator {
   bool allowTextStreaming(
     StreamingState state,
     ChatResult<ChatMessage> result,
-  ) => true;
+  ) =>
+      true;
 
   /// Selects which message should be accumulated for the consolidated result.
   @protected
   ChatMessage selectMessageForAccumulation(ChatResult<ChatMessage> result) =>
       result.output.parts.isEmpty && result.messages.isNotEmpty
-      ? result.messages.first
-      : result.output;
+          ? result.messages.first
+          : result.output;
 
   /// Handles the final consolidated message after the model stream completes.
   @protected
@@ -169,8 +170,7 @@ class DefaultStreamingOrchestrator implements StreamingOrchestrator {
         messages: const [],
         shouldContinue: false,
         finishReason: state.lastResult.finishReason,
-        metadata:
-            const {}, // Empty - metadata already streamed via onModelChunk
+        metadata: const {}, // Empty - metadata already streamed via onModelChunk
         usage: state.lastResult.usage, // Final usage here
       );
       return;
@@ -250,9 +250,8 @@ class DefaultStreamingOrchestrator implements StreamingOrchestrator {
 
     final executionResults = await executeToolBatch(state, toolCalls);
 
-    final toolResultParts = executionResults
-        .map((result) => result.resultPart)
-        .toList();
+    final toolResultParts =
+        executionResults.map((result) => result.resultPart).toList();
 
     if (toolResultParts.isNotEmpty) {
       // Copy provider-specific metadata (e.g., Google's thoughtSignatures)
@@ -313,7 +312,8 @@ class DefaultStreamingOrchestrator implements StreamingOrchestrator {
   Future<List<ToolExecutionResult>> executeToolBatch(
     StreamingState state,
     List<ToolPart> toolCalls,
-  ) => state.executor.executeBatch(toolCalls, state.toolMap);
+  ) =>
+      state.executor.executeBatch(toolCalls, state.toolMap);
 
   /// Registers tool calls with the tool ID coordinator.
   @protected

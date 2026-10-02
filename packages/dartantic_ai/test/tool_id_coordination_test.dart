@@ -304,8 +304,7 @@ void main() {
             expect(
               call.callId,
               isNotEmpty,
-              reason:
-                  'Provider ${provider.name} tool call "${call.toolName}" '
+              reason: 'Provider ${provider.name} tool call "${call.toolName}" '
                   'should have non-empty ID',
             );
           }
@@ -372,8 +371,7 @@ void main() {
               expect(
                 ids.toSet().length,
                 equals(ids.length),
-                reason:
-                    'Provider ${provider.name} should generate unique IDs '
+                reason: 'Provider ${provider.name} should generate unique IDs '
                     'for multiple calls to same tool',
               );
             }

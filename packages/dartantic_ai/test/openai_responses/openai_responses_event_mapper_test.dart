@@ -11,13 +11,29 @@ import 'package:test/test.dart';
 Future<ContainerFileData> _mockDownloadContainerFile(
   String containerId,
   String fileId,
-) async => ContainerFileData(
-  bytes: Uint8List.fromList(const [1, 2, 3, 4]),
-  fileName: '$fileId.bin',
-);
+) async =>
+    ContainerFileData(
+      bytes: Uint8List.fromList(const [1, 2, 3, 4]),
+      fileName: '$fileId.bin',
+    );
 
 void main() {
   group('OpenAIResponsesEventMapper', () {
+    test('container ID preserves initial null and rejects null assignment', () {
+      final mapper = OpenAIResponsesEventMapper(
+        storeSession: true,
+        downloadContainerFile: _mockDownloadContainerFile,
+      );
+      expect(mapper.containerId, isNull);
+      mapper.containerId = 'container-123';
+      expect(mapper.containerId, 'container-123');
+      expect(() => mapper.containerId = null, throwsA(isA<TypeError>()));
+      expect(mapper.containerId, 'container-123');
+      final dynamic dynamicMapper = mapper;
+      expect(() => dynamicMapper.containerId = null, throwsA(isA<TypeError>()));
+      expect(mapper.containerId, 'container-123');
+    });
+
     test('streams text deltas as chat results', () async {
       final mapper = OpenAIResponsesEventMapper(
         storeSession: true,
@@ -138,8 +154,8 @@ void main() {
         );
 
         final callPart = message.parts.whereType<ToolPart>().firstWhere(
-          (part) => part.kind == ToolPartKind.call,
-        );
+              (part) => part.kind == ToolPartKind.call,
+            );
         expect(callPart.toolName, equals('fetchData'));
 
         final session = OpenAIResponsesMetadata.getSessionData(
@@ -282,11 +298,9 @@ void main() {
     );
 
     test('handles multiple concurrent images at different indices', () async {
-      const fakeImageData1 =
-          'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC'
+      const fakeImageData1 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC'
           '0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=';
-      const fakeImageData2 =
-          'iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAE'
+      const fakeImageData2 = 'iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAE'
           'klEQVR4nGNgYGD4z8DAwMgAAAOGAgM9RdERAAAAAElFTkSuQmCC';
 
       final mapper = OpenAIResponsesEventMapper(

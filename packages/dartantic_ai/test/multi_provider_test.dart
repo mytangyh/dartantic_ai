@@ -95,8 +95,8 @@ void main() {
           final prompt = i == 0
               ? 'I have a pet dog named Max who is 5 years old'
               : i == 1
-              ? 'How old is my pet?'
-              : 'What kind of animal is Max?';
+                  ? 'How old is my pet?'
+                  : 'What kind of animal is Max?';
 
           final result = await agent.send(prompt, history: history);
           history.addAll(result.messages);

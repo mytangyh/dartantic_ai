@@ -65,10 +65,8 @@ class _RequestInfo {
       );
     } else if (request is http.StreamedRequest) {
       // For streamed requests, we need to read the body
-      final bodyBytes = await request
-          .finalize()
-          .expand((bytes) => bytes)
-          .toList();
+      final bodyBytes =
+          await request.finalize().expand((bytes) => bytes).toList();
       final bodyString = utf8.decode(bodyBytes);
       return _RequestInfo(
         method: request.method,

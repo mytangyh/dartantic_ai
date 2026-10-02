@@ -26,14 +26,14 @@ class OpenAIResponsesChatModel
     http.Client? httpClient,
     Map<String, String>? headers,
   }) : _client = openai.OpenAIClient(
-         config: openai.OpenAIConfig(
-           authProvider: apiKey != null ? openai.ApiKeyProvider(apiKey) : null,
-           baseUrl: baseUrl?.toString() ?? 'https://api.openai.com/v1',
-           defaultHeaders: headers ?? const {},
-           retryPolicy: const openai.RetryPolicy(maxRetries: 0),
-         ),
-         httpClient: RetryHttpClient(inner: httpClient ?? http.Client()),
-       );
+          config: openai.OpenAIConfig(
+            authProvider: apiKey != null ? openai.ApiKeyProvider(apiKey) : null,
+            baseUrl: baseUrl?.toString() ?? 'https://api.openai.com/v1',
+            defaultHeaders: headers ?? const {},
+            retryPolicy: const openai.RetryPolicy(maxRetries: 0),
+          ),
+          httpClient: RetryHttpClient(inner: httpClient ?? http.Client()),
+        );
 
   static final Logger _logger = Logger(
     'dartantic.chat.models.openai_responses',
@@ -109,27 +109,29 @@ class OpenAIResponsesChatModel
 
   List<openai.ResponseTool> _buildAllTools(
     OpenAIServerSideToolContext context,
-  ) => [
-    ..._buildFunctionTools(),
-    ...OpenAIResponsesServerSideToolMapper.buildServerSideTools(
-      serverSideTools: context.enabledTools,
-      fileSearchConfig: context.fileSearchConfig,
-      webSearchConfig: context.webSearchConfig,
-      codeInterpreterConfig: context.codeInterpreterConfig,
-      imageGenerationConfig: context.imageGenerationConfig,
-    ),
-  ];
+  ) =>
+      [
+        ..._buildFunctionTools(),
+        ...OpenAIResponsesServerSideToolMapper.buildServerSideTools(
+          serverSideTools: context.enabledTools,
+          fileSearchConfig: context.fileSearchConfig,
+          webSearchConfig: context.webSearchConfig,
+          codeInterpreterConfig: context.codeInterpreterConfig,
+          imageGenerationConfig: context.imageGenerationConfig,
+        ),
+      ];
 
   OpenAIResponsesInvocation _buildInvocation(
     List<ChatMessage> messages,
     OpenAIResponsesChatModelOptions? options,
     Schema? outputSchema,
-  ) => OpenAIResponsesInvocationBuilder(
-    messages: messages,
-    options: options,
-    defaultOptions: defaultOptions,
-    outputSchema: outputSchema,
-  ).build();
+  ) =>
+      OpenAIResponsesInvocationBuilder(
+        messages: messages,
+        options: options,
+        defaultOptions: defaultOptions,
+        outputSchema: outputSchema,
+      ).build();
 
   void _validateInvocation(OpenAIResponsesInvocation invocation) {
     if ((invocation.serverSide.codeInterpreterConfig?.shouldReuseContainer ??
@@ -163,9 +165,8 @@ class OpenAIResponsesChatModel
       tools: allTools.isEmpty ? null : allTools,
       parallelToolCalls: invocation.parameters.parallelToolCalls,
       metadata: invocation.parameters.metadata,
-      include: invocation.parameters.include
-          ?.map(openai.Include.fromJson)
-          .toList(),
+      include:
+          invocation.parameters.include?.map(openai.Include.fromJson).toList(),
       truncation: invocation.parameters.truncation,
     ).toJson();
     requestBody['stream'] = true;
@@ -182,10 +183,11 @@ class OpenAIResponsesChatModel
 
   OpenAIResponsesEventMapper _createMapper(
     OpenAIResponsesInvocation invocation,
-  ) => OpenAIResponsesEventMapper(
-    storeSession: invocation.store,
-    downloadContainerFile: downloadContainerFile,
-  );
+  ) =>
+      OpenAIResponsesEventMapper(
+        storeSession: invocation.store,
+        downloadContainerFile: downloadContainerFile,
+      );
 
   Stream<ChatResult<ChatMessage>> _consumeResponseStream(
     Stream<Map<String, dynamic>> rawStream,

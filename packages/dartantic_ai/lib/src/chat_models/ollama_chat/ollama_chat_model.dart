@@ -25,22 +25,22 @@ class OllamaChatModel extends ChatModel<OllamaChatOptions> {
     http.Client? client,
     Map<String, String>? headers,
     this.enableThinking = false,
-  }) : _client = OllamaClient(
-         config: OllamaConfig(
-           baseUrl: baseUrl?.toString() ?? 'http://localhost:11434',
-           defaultHeaders: headers ?? {},
-         ),
-         httpClient: client,
-       ),
-       _baseUrl = baseUrl ?? Uri.parse('http://localhost:11434'),
-       _httpClient = client ?? http.Client(),
-       _ownsHttpClient = client == null,
-       _headers = headers ?? const {},
-       super(
-         name: name,
-         defaultOptions: defaultOptions ?? const OllamaChatOptions(),
-         tools: tools,
-       ) {
+  })  : _client = OllamaClient(
+          config: OllamaConfig(
+            baseUrl: baseUrl?.toString() ?? 'http://localhost:11434',
+            defaultHeaders: headers ?? {},
+          ),
+          httpClient: client,
+        ),
+        _baseUrl = baseUrl ?? Uri.parse('http://localhost:11434'),
+        _httpClient = client ?? http.Client(),
+        _ownsHttpClient = client == null,
+        _headers = headers ?? const {},
+        super(
+          name: name,
+          defaultOptions: defaultOptions ?? const OllamaChatOptions(),
+          tools: tools,
+        ) {
     _logger.info(
       'Creating Ollama model: $name '
       'with ${tools?.length ?? 0} tools, temp: $temperature',
@@ -115,10 +115,9 @@ class OllamaChatModel extends ChatModel<OllamaChatOptions> {
     var chunkCount = 0;
 
     // Parse NDJSON stream, using ChatResponse.fromJson to preserve usage
-    await for (final line
-        in streamedResponse.stream
-            .transform(utf8.decoder)
-            .transform(const LineSplitter())) {
+    await for (final line in streamedResponse.stream
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())) {
       if (line.trim().isEmpty) continue;
 
       final json = jsonDecode(line) as Map<String, dynamic>;

@@ -31,22 +31,22 @@ class AnthropicChatModel extends ChatModel<AnthropicChatOptions> {
     AnthropicChatOptions? defaultOptions,
     List<String> betaFeatures = const [],
     bool? autoDownloadFiles,
-  }) : _enableThinking = enableThinking,
-       _client = _AnthropicStreamingClient(
-         apiKey: apiKey,
-         baseUrl: baseUrl?.toString(),
-         client: client,
-         headers: headers,
-         betaFeatures: betaFeatures,
-       ),
-       _filesClient = (autoDownloadFiles ?? _hasCodeExecution(defaultOptions))
-           ? AnthropicFilesClient(
-               apiKey: apiKey,
-               baseUrl: baseUrl,
-               betaFeatures: betaFeatures,
-             )
-           : null,
-       super(defaultOptions: defaultOptions ?? const AnthropicChatOptions()) {
+  })  : _enableThinking = enableThinking,
+        _client = _AnthropicStreamingClient(
+          apiKey: apiKey,
+          baseUrl: baseUrl?.toString(),
+          client: client,
+          headers: headers,
+          betaFeatures: betaFeatures,
+        ),
+        _filesClient = (autoDownloadFiles ?? _hasCodeExecution(defaultOptions))
+            ? AnthropicFilesClient(
+                apiKey: apiKey,
+                baseUrl: baseUrl,
+                betaFeatures: betaFeatures,
+              )
+            : null,
+        super(defaultOptions: defaultOptions ?? const AnthropicChatOptions()) {
     _logger.info(
       'Creating Anthropic model: $name with '
       '${tools?.length ?? 0} tools, temp: $temperature, '
@@ -234,16 +234,16 @@ class _AnthropicStreamingClient {
     Map<String, String>? headers,
     List<String> betaFeatures = const [],
   }) : _client = a.AnthropicClient(
-         config: a.AnthropicConfig(
-           authProvider: a.ApiKeyProvider(apiKey),
-           baseUrl: baseUrl ?? 'https://api.anthropic.com',
-           defaultHeaders: {
-             'anthropic-beta': _buildBetaHeader(betaFeatures),
-             ...?headers,
-           },
-         ),
-         httpClient: client,
-       );
+          config: a.AnthropicConfig(
+            authProvider: a.ApiKeyProvider(apiKey),
+            baseUrl: baseUrl ?? 'https://api.anthropic.com',
+            defaultHeaders: {
+              'anthropic-beta': _buildBetaHeader(betaFeatures),
+              ...?headers,
+            },
+          ),
+          httpClient: client,
+        );
 
   final a.AnthropicClient _client;
 

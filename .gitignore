@@ -38,3 +38,9 @@ tmp/
 .svn/
 migrate_working_dir/
 AGENT.md
+
+.fvm/
+.compat-local/
+
+# Keep the compatibility workspace resolution.
+!/pubspec.lock

@@ -23,24 +23,24 @@ class OpenAIChatModel extends ChatModel<OpenAIChatOptions> {
     Uri? baseUrl,
     Map<String, String>? headers,
     http.Client? client,
-  }) : _client = OpenAIClient(
-         config: OpenAIConfig(
-           authProvider: apiKey != null ? ApiKeyProvider(apiKey) : null,
-           organization: organization,
-           baseUrl: baseUrl?.toString() ?? 'https://api.openai.com/v1',
-           defaultHeaders: headers ?? const {},
-           retryPolicy: const RetryPolicy(maxRetries: 0),
-         ),
-         httpClient: client != null
-             ? RetryHttpClient(inner: client)
-             : RetryHttpClient(inner: http.Client()),
-       ),
-       _isTogetherAI =
-           baseUrl?.toString().toLowerCase().contains('together.xyz') ?? false,
-       super(
-         defaultOptions: defaultOptions ?? const OpenAIChatOptions(),
-         tools: tools,
-       ) {
+  })  : _client = OpenAIClient(
+          config: OpenAIConfig(
+            authProvider: apiKey != null ? ApiKeyProvider(apiKey) : null,
+            organization: organization,
+            baseUrl: baseUrl?.toString() ?? 'https://api.openai.com/v1',
+            defaultHeaders: headers ?? const {},
+            retryPolicy: const RetryPolicy(maxRetries: 0),
+          ),
+          httpClient: client != null
+              ? RetryHttpClient(inner: client)
+              : RetryHttpClient(inner: http.Client()),
+        ),
+        _isTogetherAI =
+            baseUrl?.toString().toLowerCase().contains('together.xyz') ?? false,
+        super(
+          defaultOptions: defaultOptions ?? const OpenAIChatOptions(),
+          tools: tools,
+        ) {
     // Validate that providers with known tool limitations don't use tools
     if (tools != null && tools.isNotEmpty) {
       if (_isTogetherAI) {

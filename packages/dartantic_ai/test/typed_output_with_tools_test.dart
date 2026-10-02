@@ -38,7 +38,6 @@ void main() {
       },
       'required': ['recipe_name'],
     }),
-
     onCall: (input) {
       final recipeName = input['recipe_name'] as String;
       // Mock recipe database
@@ -130,9 +129,8 @@ void main() {
       return {
         'valid': isValid,
         'code': code,
-        'message': isValid
-            ? 'Code is valid and authorized'
-            : 'Invalid code provided',
+        'message':
+            isValid ? 'Code is valid and authorized' : 'Invalid code provided',
         'access_level': isValid ? 'admin' : 'none',
         'expires_at': '2025-12-31T23:59:59Z',
       };

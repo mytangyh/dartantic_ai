@@ -20,10 +20,9 @@ import '../tool.dart';
 /// The provider interface is used to create a provider instance, which can be
 /// used to create a chat model or an embeddings model.
 abstract class Provider<
-  TChatOptions extends ChatModelOptions,
-  TEmbeddingsOptions extends EmbeddingsModelOptions,
-  TMediaOptions extends MediaGenerationModelOptions
-> {
+    TChatOptions extends ChatModelOptions,
+    TEmbeddingsOptions extends EmbeddingsModelOptions,
+    TMediaOptions extends MediaGenerationModelOptions> {
   /// Creates a new provider instance.
   ///
   /// - [name]: The canonical provider name (e.g., 'openai', 'ollama').

@@ -18,6 +18,6 @@ class AnthropicThinkingMetadata {
 
   /// Creates metadata containing the thinking signature.
   static Map<String, Object?> buildMetadata({required String signature}) => {
-    signatureKey: signature,
-  };
+        signatureKey: signature,
+      };
 }

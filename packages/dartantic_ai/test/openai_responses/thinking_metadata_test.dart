@@ -9,10 +9,11 @@ import 'package:test/test.dart';
 Future<ContainerFileData> _mockDownloadContainerFile(
   String containerId,
   String fileId,
-) async => ContainerFileData(
-  bytes: Uint8List.fromList(const [1, 2, 3, 4]),
-  fileName: '$fileId.bin',
-);
+) async =>
+    ContainerFileData(
+      bytes: Uint8List.fromList(const [1, 2, 3, 4]),
+      fileName: '$fileId.bin',
+    );
 
 void main() {
   group('OpenAIResponsesEventMapper thinking metadata', () {

@@ -112,14 +112,15 @@ class CustomOpenAIProvider extends OpenAIProvider {
     double? temperature,
     bool enableThinking = false,
     OpenAIChatOptions? options,
-  }) => OpenAIChatModel(
-    name: name ?? defaultModelNames[ModelKind.chat]!,
-    apiKey: apiKey,
-    client: client,
-    tools: tools,
-    temperature: temperature,
-    defaultOptions: options ?? const OpenAIChatOptions(),
-  );
+  }) =>
+      OpenAIChatModel(
+        name: name ?? defaultModelNames[ModelKind.chat]!,
+        apiKey: apiKey,
+        client: client,
+        tools: tools,
+        temperature: temperature,
+        defaultOptions: options ?? const OpenAIChatOptions(),
+      );
 }
 
 class CustomGoogleProvider extends GoogleProvider {
@@ -134,16 +135,17 @@ class CustomGoogleProvider extends GoogleProvider {
     double? temperature,
     bool enableThinking = false,
     GoogleChatModelOptions? options,
-  }) => GoogleChatModel(
-    name: name ?? defaultModelNames[ModelKind.chat]!,
-    apiKey: apiKey!,
-    baseUrl: baseUrl ?? GoogleProvider.defaultBaseUrl,
-    client: client,
-    tools: tools,
-    temperature: temperature,
-    enableThinking: enableThinking,
-    defaultOptions: options ?? const GoogleChatModelOptions(),
-  );
+  }) =>
+      GoogleChatModel(
+        name: name ?? defaultModelNames[ModelKind.chat]!,
+        apiKey: apiKey!,
+        baseUrl: baseUrl ?? GoogleProvider.defaultBaseUrl,
+        client: client,
+        tools: tools,
+        temperature: temperature,
+        enableThinking: enableThinking,
+        defaultOptions: options ?? const GoogleChatModelOptions(),
+      );
 }
 
 class CustomAnthropicProvider extends AnthropicProvider {
@@ -158,15 +160,16 @@ class CustomAnthropicProvider extends AnthropicProvider {
     double? temperature,
     bool enableThinking = false,
     AnthropicChatOptions? options,
-  }) => AnthropicChatModel(
-    name: name ?? defaultModelNames[ModelKind.chat]!,
-    apiKey: apiKey!,
-    client: client,
-    tools: tools,
-    temperature: temperature,
-    enableThinking: enableThinking,
-    defaultOptions: options ?? const AnthropicChatOptions(),
-  );
+  }) =>
+      AnthropicChatModel(
+        name: name ?? defaultModelNames[ModelKind.chat]!,
+        apiKey: apiKey!,
+        client: client,
+        tools: tools,
+        temperature: temperature,
+        enableThinking: enableThinking,
+        defaultOptions: options ?? const AnthropicChatOptions(),
+      );
 }
 
 class CustomMistralProvider extends MistralProvider {
@@ -181,14 +184,15 @@ class CustomMistralProvider extends MistralProvider {
     double? temperature,
     bool enableThinking = false,
     MistralChatModelOptions? options,
-  }) => MistralChatModel(
-    name: name ?? defaultModelNames[ModelKind.chat]!,
-    apiKey: apiKey!,
-    client: client,
-    tools: tools,
-    temperature: temperature,
-    defaultOptions: options ?? const MistralChatModelOptions(),
-  );
+  }) =>
+      MistralChatModel(
+        name: name ?? defaultModelNames[ModelKind.chat]!,
+        apiKey: apiKey!,
+        client: client,
+        tools: tools,
+        temperature: temperature,
+        defaultOptions: options ?? const MistralChatModelOptions(),
+      );
 }
 
 class CustomOllamaProvider extends OllamaProvider {
@@ -203,12 +207,13 @@ class CustomOllamaProvider extends OllamaProvider {
     double? temperature,
     bool enableThinking = false,
     OllamaChatOptions? options,
-  }) => OllamaChatModel(
-    name: name ?? defaultModelNames[ModelKind.chat]!,
-    baseUrl: baseUrl,
-    client: client,
-    tools: tools,
-    temperature: temperature,
-    defaultOptions: options ?? const OllamaChatOptions(),
-  );
+  }) =>
+      OllamaChatModel(
+        name: name ?? defaultModelNames[ModelKind.chat]!,
+        baseUrl: baseUrl,
+        client: client,
+        tools: tools,
+        temperature: temperature,
+        defaultOptions: options ?? const OllamaChatOptions(),
+      );
 }

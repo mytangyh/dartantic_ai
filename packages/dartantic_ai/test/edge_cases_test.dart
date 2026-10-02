@@ -22,8 +22,7 @@ void main() {
         expect(
           () => Agent(provider.name),
           returnsNormally,
-          reason:
-              'Provider ${provider.name} should create agent '
+          reason: 'Provider ${provider.name} should create agent '
               'without throwing',
         );
 

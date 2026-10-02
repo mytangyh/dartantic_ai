@@ -24,12 +24,12 @@ class CohereEmbeddingsModel
     List<String>? embeddingTypes,
     String? truncate,
     super.defaultOptions = const CohereEmbeddingsModelOptions(),
-  }) : _apiKey = apiKey,
-       _baseUrl = baseUrl,
-       _truncate = truncate,
-       _embeddingTypes = embeddingTypes,
-       _inputType = inputType,
-       _httpClient = RetryHttpClient(inner: http.Client()) {
+  })  : _apiKey = apiKey,
+        _baseUrl = baseUrl,
+        _truncate = truncate,
+        _embeddingTypes = embeddingTypes,
+        _inputType = inputType,
+        _httpClient = RetryHttpClient(inner: http.Client()) {
     _logger.info(
       'Created Cohere embeddings model: $name '
       '(dimensions: $dimensions, batchSize: $batchSize)',
@@ -101,9 +101,8 @@ class CohereEmbeddingsModel
 
     for (var i = 0; i < chunks.length; i++) {
       final chunk = chunks[i];
-      final chunkCharacters = chunk
-          .map((t) => t.length)
-          .reduce((a, b) => a + b);
+      final chunkCharacters =
+          chunk.map((t) => t.length).reduce((a, b) => a + b);
 
       _logger.fine(
         'Processing batch ${i + 1}/${chunks.length} '
@@ -166,9 +165,8 @@ class CohereEmbeddingsModel
     final usage = LanguageModelUsage(
       promptTokens: totalPromptTokens > 0 ? totalPromptTokens : null,
       totalTokens: totalPromptTokens > 0 ? totalPromptTokens : null,
-      promptBillableCharacters: totalBillableCharacters > 0
-          ? totalBillableCharacters
-          : null,
+      promptBillableCharacters:
+          totalBillableCharacters > 0 ? totalBillableCharacters : null,
     );
 
     final result = BatchEmbeddingsResult(

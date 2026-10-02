@@ -99,7 +99,6 @@ void main() {
 
       runProviderTest(
         'context retention across turns',
-
         (provider) async {
           final agent = Agent(provider.name);
           final history = <ChatMessage>[];

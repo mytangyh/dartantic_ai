@@ -11,8 +11,8 @@ class StreamingState {
   StreamingState({
     required List<ChatMessage> conversationHistory,
     required Map<String, Tool> toolMap,
-  }) : _conversationHistory = conversationHistory,
-       _toolMap = toolMap;
+  })  : _conversationHistory = conversationHistory,
+        _toolMap = toolMap;
 
   /// Logger for state.streaming operations.
   static final Logger _logger = Logger('dartantic.state.streaming');
